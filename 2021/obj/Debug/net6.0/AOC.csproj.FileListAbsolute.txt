@@ -1,0 +1,15 @@
+C:\Users\Kenny\coding\AOC\2021\bin\Debug\net6.0\AOC.exe
+C:\Users\Kenny\coding\AOC\2021\bin\Debug\net6.0\AOC.deps.json
+C:\Users\Kenny\coding\AOC\2021\bin\Debug\net6.0\AOC.runtimeconfig.json
+C:\Users\Kenny\coding\AOC\2021\bin\Debug\net6.0\AOC.dll
+C:\Users\Kenny\coding\AOC\2021\bin\Debug\net6.0\AOC.pdb
+C:\Users\Kenny\coding\AOC\2021\obj\Debug\net6.0\AOC.csproj.AssemblyReference.cache
+C:\Users\Kenny\coding\AOC\2021\obj\Debug\net6.0\AOC.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kenny\coding\AOC\2021\obj\Debug\net6.0\AOC.AssemblyInfoInputs.cache
+C:\Users\Kenny\coding\AOC\2021\obj\Debug\net6.0\AOC.AssemblyInfo.cs
+C:\Users\Kenny\coding\AOC\2021\obj\Debug\net6.0\AOC.csproj.CoreCompileInputs.cache
+C:\Users\Kenny\coding\AOC\2021\obj\Debug\net6.0\AOC.dll
+C:\Users\Kenny\coding\AOC\2021\obj\Debug\net6.0\refint\AOC.dll
+C:\Users\Kenny\coding\AOC\2021\obj\Debug\net6.0\AOC.pdb
+C:\Users\Kenny\coding\AOC\2021\obj\Debug\net6.0\AOC.genruntimeconfig.cache
+C:\Users\Kenny\coding\AOC\2021\obj\Debug\net6.0\ref\AOC.dll
