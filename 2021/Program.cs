@@ -110,7 +110,35 @@ int binaryStringToDec(string binStr)
     return dec;
 }
 
+void day3_2()
+{
+    List<string> oxy = readFile(3);
+    List<string> co2 = oxy.ConvertAll(s => new string(s));
+    string oxyString = reduceList(oxy, true);
+    string co2String = reduceList(co2, false);
+    Console.WriteLine(binaryStringToDec(oxyString) * binaryStringToDec(co2String));
+}
 
+char findCommonDig(List<string> list, int i, bool isOxy)
+{
+    int count = 0;
+    int len = list.Count;
+    int half = len % 2 == 0 ? len / 2 : (len / 2) + 1;
+    foreach (string s in list) if (s[i] == '1') count++;
+    if (count == half) return isOxy ? '1' : '0';
+    else return count > half ? isOxy ? '1' : '0' : isOxy ? '0' : '1';
+}
+
+string reduceList(List<string> list, bool isOxy)
+{
+    int len = list.Count;
+    for (int i = 0; list.Count > 1 && i < len; i++)
+    {
+        char bit = findCommonDig(list, i, isOxy);
+        list = list.Where(x => x[i] == bit).ToList();
+    }
+    return list[0];
+}
 
 
 List<string> readFile(int day)
@@ -163,3 +191,4 @@ day1_2();
 day2_1();
 day2_2();
 day3_1();
+day3_2();
