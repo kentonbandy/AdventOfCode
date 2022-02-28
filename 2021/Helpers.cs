@@ -36,19 +36,7 @@ namespace AOC
 
         public List<int> convertListToInt(List<string> strings)
         {
-            List<int> ints = new();
-            foreach (string s in strings)
-            {
-                try
-                {
-                    ints.Add(Convert.ToInt32(s));
-                }
-                catch (Exception)
-                {
-                    Console.WriteLine("Could not convert list to int");
-                }
-            }
-            return ints;
+            return strings.Select(s => Convert.ToInt32(s)).ToList();
         }
     }
 }

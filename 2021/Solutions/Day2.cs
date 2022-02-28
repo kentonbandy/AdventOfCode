@@ -4,17 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AOC
+namespace AOC.Solutions
 {
     internal class Day2
     {
         private readonly Helpers help = new();
 
-        public void day2_1()
+        public void Day2_1()
         {
             List<string> commands = help.readFile(2);
-            int hor = 0;
-            int dep = 0;
+            int hor = 0, dep = 0;
             foreach (string cmd in commands)
             {
                 string[] vs = cmd.Split(' ');
@@ -26,13 +25,11 @@ namespace AOC
             Console.WriteLine(hor * dep);
         }
 
-        public void day2_2()
+        public void Day2_2()
         {
 
             List<string> commands = help.readFile(2);
-            int hor = 0;
-            int dep = 0;
-            int aim = 0;
+            int hor = 0, dep = 0, aim = 0;
             foreach (string cmd in commands)
             {
                 string[] vs = cmd.Split(' ');

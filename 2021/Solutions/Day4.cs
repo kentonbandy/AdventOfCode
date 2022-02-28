@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AOC
+namespace AOC.Solutions
 {
     internal class Day4
     {
@@ -15,7 +15,7 @@ namespace AOC
             List<string> rawInput = help.readFile(4);
             List<int> nums = rawInput[0].Split(',').Select(s => Convert.ToInt32(s)).ToList();
             rawInput.RemoveRange(0, 2);
-            List<Board> boards = BuildBoardList(rawInput);
+            List<Board> boards = buildBoardList(rawInput);
             foreach (int num in nums)
             {
                 foreach (Board board in boards)
@@ -35,7 +35,7 @@ namespace AOC
             List<string> rawInput = help.readFile(4);
             List<int> nums = rawInput[0].Split(',').Select(s => Convert.ToInt32(s)).ToList();
             rawInput.RemoveRange(0, 2);
-            List<Board> boards = BuildBoardList(rawInput);
+            List<Board> boards = buildBoardList(rawInput);
             foreach (int num in nums)
             {
                 foreach (Board board in boards)
@@ -52,7 +52,7 @@ namespace AOC
             }
         }
 
-        private List<Board> BuildBoardList(List<string> rawInput)
+        private List<Board> buildBoardList(List<string> rawInput)
         {
             List<Board> boards = new();
             Board board = new();
@@ -97,8 +97,8 @@ namespace AOC
 
         public bool IsWinner()
         {
-            for (int i = 0; i < Squares.Count; i++) if (AllTrue(Squares[i]) || AllTrue(Column(i))) return true;
-            return AllTrue(Diag(true)) || AllTrue(Diag(false));
+            for (int i = 0; i < Squares.Count; i++) if (allTrue(Squares[i]) || allTrue(column(i))) return true;
+            return allTrue(diag(true)) || allTrue(diag(false));
         }
 
         public int SumUnmarked()
@@ -108,12 +108,12 @@ namespace AOC
             return sum;
         }
 
-        private bool AllTrue(List<Square> line)
+        private bool allTrue(List<Square> line)
         {
             return line.TrueForAll(s => s.Marked);
         }
 
-        private List<Square> Column(int col)
+        private List<Square> column(int col)
         {
             List<Square> result = new();
             if (col < 0 || col > Squares.Count - 1) return result;
@@ -124,7 +124,7 @@ namespace AOC
             return result;
         }
 
-        private List<Square> Diag(bool topLeft)
+        private List<Square> diag(bool topLeft)
         {
             List<Square> result = new();
             int len = Squares.Count;

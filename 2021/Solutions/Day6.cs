@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AOC
+namespace AOC.Solutions
 {
     internal class Day6
     {
         private Helpers help = new();
+
+        //works for part 1 but fails part 2
         public void Angler1(int days)
         {
             List<int> anglerfish = help.readFile(6)[0].Split(',').Select(x => Convert.ToInt32(x)).ToList();
@@ -30,6 +32,7 @@ namespace AOC
             Console.WriteLine(anglerfish.Count);
         }
 
+        //works for both parts and far more efficient
         public void Angler2(int days)
         {
             List<int> rawData = help.readFile(6)[0].Split(',').Select(x => Convert.ToInt32(x)).ToList();
@@ -61,6 +64,7 @@ namespace AOC
             Console.WriteLine(total);
         }
 
+        // This works for part 1 but fails for part 2
         public void AnglerBad(int days)
         {
             StringBuilder anglerfish = new(help.readFile(6)[0]);

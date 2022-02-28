@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AOC
+namespace AOC.Solutions
 {
     internal class Day3
     {
         private readonly Helpers help = new();
 
-        public void day3_1()
+        public void Day3_1()
         {
             List<string> bin = help.readFile(3);
             Dictionary<int, int> counts = new();
@@ -31,7 +31,7 @@ namespace AOC
             Console.WriteLine(binaryStringToDec(gam) * binaryStringToDec(eps));
         }
 
-        public void day3_2()
+        public void Day3_2()
         {
             List<string> oxy = help.readFile(3);
             List<string> co2 = oxy.ConvertAll(s => new string(s));
