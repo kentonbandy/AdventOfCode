@@ -8,6 +8,7 @@ Day5 day5 = new();
 Day6 day6 = new();
 Day7 day7 = new();
 Day8 day8 = new();
+Day9 day9 = new();
 
 // Main
 Console.WriteLine("Day 1:");
@@ -35,3 +36,6 @@ Console.WriteLine("\nDay 8:");
 day8.UniqueSegments();
 day8.SumOutputs();
 Console.WriteLine("\nDay 9:");
+day9.RiskLevelSum();
+day9.BasinProduct();
+Console.WriteLine("\nDay 10:");
