@@ -40,7 +40,10 @@ namespace AOC.Solutions
             if (row > 0 && map[row - 1][col] <= point ||
                 row < map.Count - 1 && map[row + 1][col] <= point ||
                 col > 0 && map[row][col - 1] <= point ||
-                col < map[row].Count - 1 && map[row][col + 1] <= point) return 0;
+                col < map[row].Count - 1 && map[row][col + 1] <= point)
+            {
+                return 0;
+            }
             return point + 1;
         }
 
@@ -57,8 +60,7 @@ namespace AOC.Solutions
                 }
             }
             List<int> basinSizes = basins.Values.Select(v => v.Count).ToList();
-            basinSizes.Sort();
-            basinSizes.Reverse();
+            basinSizes.Sort((a, b) => b - a);
             Console.WriteLine(basinSizes[0] * basinSizes[1] * basinSizes[2]);
         }
 
@@ -77,7 +79,6 @@ namespace AOC.Solutions
                     goto Start;
                 }
             }
-            return;
         }
 
         private void checkNeighbors(HashSet<string> basins, string point)
