@@ -18,7 +18,7 @@ namespace AOC.Solutions
 
         public Day10()
         {
-            Lines = Help.readFile(99);
+            Lines = Help.readFile(10);
             Match = new() {{ ')', '(' },    { ']', '[' },   { '}', '{' },   { '>', '<' }};
             Score = new() {{ ')', 3 },      { ']', 57 },    { '}', 1197 },  { '>', 25137 }};
             Score2 = new(){{ '(', 1 },      { '[', 2 },     { '{', 3 },     { '<', 4 }};
@@ -35,13 +35,12 @@ namespace AOC.Solutions
         {
             Lines.ForEach(x => checkLine(x, true));
             List<long> scores = new();
-            List<long> subScores = new();
+            long score = 0;
             foreach (Stack<char> s in IncompleteLines)
             {
-                while (s.Count > 0) subScores.Add(Score2[s.Pop()]);
-                subScores.Reverse();
-                scores.Add(subScores.Aggregate(0L, (a, b) => (a * 5L) + b));
-                subScores.Clear();
+                while (s.Count > 0) score = (score * 5) + Score2[s.Pop()];
+                scores.Add(score);
+                score = 0;
             }
             scores.Sort();
             Console.WriteLine(scores[scores.Count / 2]);
@@ -59,7 +58,7 @@ namespace AOC.Solutions
                     return Score[c];
                 }
             }
-            if (filterList) IncompleteLines.Add(new Stack<char>(Stack));
+            if (filterList) IncompleteLines.Add(new Stack<char>(Stack.Reverse()));
             Stack.Clear();
             return 0;
         }
