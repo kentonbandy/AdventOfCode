@@ -9,6 +9,7 @@ Day6 day6 = new();
 Day7 day7 = new();
 Day8 day8 = new();
 Day9 day9 = new();
+Day10 day10 = new();
 
 // Main
 Console.WriteLine("Day 1:");
@@ -39,3 +40,5 @@ Console.WriteLine("\nDay 9:");
 day9.RiskLevelSum();
 day9.BasinProduct();
 Console.WriteLine("\nDay 10:");
+day10.SyntaxScore();
+day10.AutoComplete();
