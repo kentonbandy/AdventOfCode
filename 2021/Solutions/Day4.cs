@@ -8,11 +8,9 @@ namespace AOC.Solutions
 {
     internal class Day4
     {
-        private readonly Helpers help = new();
-
         public void Bingo1()
         {
-            List<string> rawInput = help.readFile(4);
+            List<string> rawInput = Helpers.readFile(4);
             List<int> nums = rawInput[0].Split(',').Select(s => Convert.ToInt32(s)).ToList();
             rawInput.RemoveRange(0, 2);
             List<Board> boards = buildBoardList(rawInput);
@@ -32,7 +30,7 @@ namespace AOC.Solutions
 
         public void Bingo2()
         {
-            List<string> rawInput = help.readFile(4);
+            List<string> rawInput = Helpers.readFile(4);
             List<int> nums = rawInput[0].Split(',').Select(s => Convert.ToInt32(s)).ToList();
             rawInput.RemoveRange(0, 2);
             List<Board> boards = buildBoardList(rawInput);

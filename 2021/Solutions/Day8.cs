@@ -8,7 +8,6 @@ namespace AOC.Solutions
 {
     internal class Day8
     {
-        private Helpers help = new();
         private Dictionary<string, string> NumberKey = new()
         {
             { "abcefg",  "0" },
@@ -25,7 +24,7 @@ namespace AOC.Solutions
 
         public void UniqueSegments()
         {
-            List<string> segments = help.readFile(8);
+            List<string> segments = Helpers.readFile(8);
             int allUniqueSegs = 0;
             foreach (string segment in segments)
             {
@@ -38,7 +37,7 @@ namespace AOC.Solutions
 
         public void SumOutputs()
         {
-            List<string> segments = help.readFile(8);
+            List<string> segments = Helpers.readFile(8);
             int sum = 0;
             foreach (string s in segments) sum += decodeOutput(s, decodeConnections(s));
             Console.WriteLine(sum);

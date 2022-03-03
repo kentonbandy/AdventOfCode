@@ -1,6 +1,6 @@
 ﻿using AOC.Solutions;
 
-Day1 day1 = new();
+/*Day1 day1 = new();
 Day2 day2 = new();
 Day3 day3 = new();
 Day4 day4 = new();
@@ -9,10 +9,11 @@ Day6 day6 = new();
 Day7 day7 = new();
 Day8 day8 = new();
 Day9 day9 = new();
-Day10 day10 = new();
+Day10 day10 = new();*/
+Day11 day11 = new();
 
 // Main
-Console.WriteLine("Day 1:");
+/*Console.WriteLine("Day 1:");
 day1.Day1_1();
 day1.Day1_2();
 Console.WriteLine("\nDay 2:");
@@ -41,4 +42,6 @@ day9.RiskLevelSum();
 day9.BasinProduct();
 Console.WriteLine("\nDay 10:");
 day10.SyntaxScore();
-day10.AutoComplete();
+day10.AutoComplete();*/
+Console.WriteLine("\nDay 11:");
+day11.OctoFlashes();

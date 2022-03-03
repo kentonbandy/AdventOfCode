@@ -8,11 +8,9 @@ namespace AOC.Solutions
 {
     internal class Day2
     {
-        private readonly Helpers help = new();
-
         public void Day2_1()
         {
-            List<string> commands = help.readFile(2);
+            List<string> commands = Helpers.readFile(2);
             int hor = 0, dep = 0;
             foreach (string cmd in commands)
             {
@@ -28,7 +26,7 @@ namespace AOC.Solutions
         public void Day2_2()
         {
 
-            List<string> commands = help.readFile(2);
+            List<string> commands = Helpers.readFile(2);
             int hor = 0, dep = 0, aim = 0;
             foreach (string cmd in commands)
             {

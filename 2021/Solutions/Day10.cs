@@ -8,7 +8,6 @@ namespace AOC.Solutions
 {
     internal class Day10
     {
-        private Helpers Help = new();
         private List<string> Lines;
         private List<Stack<char>> IncompleteLines = new();
         private Dictionary<char, char> Match;
@@ -18,7 +17,7 @@ namespace AOC.Solutions
 
         public Day10()
         {
-            Lines = Help.readFile(10);
+            Lines = Helpers.readFile(10);
             Match = new() {{ ')', '(' },    { ']', '[' },   { '}', '{' },   { '>', '<' }};
             Score = new() {{ ')', 3 },      { ']', 57 },    { '}', 1197 },  { '>', 25137 }};
             Score2 = new(){{ '(', 1 },      { '[', 2 },     { '{', 3 },     { '<', 4 }};

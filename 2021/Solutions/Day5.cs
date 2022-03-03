@@ -8,10 +8,9 @@ namespace AOC.Solutions
 {
     internal class Day5
     {
-        private Helpers help = new();
         public void Vents(bool isPart2 = false)
         {
-            List<string> rawInput = help.readFile(5);
+            List<string> rawInput = Helpers.readFile(5);
             Diagram diagram = new();
             List<Line> lines = new();
             foreach (string line in rawInput) lines.Add(new Line(line));

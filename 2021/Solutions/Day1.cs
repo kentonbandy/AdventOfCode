@@ -8,11 +8,9 @@ namespace AOC.Solutions
 {
     internal class Day1
     {
-        private readonly Helpers help = new();
-
         public void Day1_1()
         {
-            List<int> depths = help.convertListToInt(help.readFile(1));
+            List<int> depths = Helpers.convertListToInt(Helpers.readFile(1));
             int count = 0;
             int j = depths[0];
             for (int i = 0; i < depths.Count; i++)
@@ -26,7 +24,7 @@ namespace AOC.Solutions
 
         public void Day1_2()
         {
-            List<int> depths = help.convertListToInt(help.readFile(1));
+            List<int> depths = Helpers.convertListToInt(Helpers.readFile(1));
             int count = 0;
             int j = depths[0] + depths[1] + depths[2];
             for (int i = 0; i < depths.Count - 2; i++)
