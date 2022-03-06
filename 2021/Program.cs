@@ -10,8 +10,9 @@ Day7 day7 = new();
 Day8 day8 = new();
 Day9 day9 = new();
 Day10 day10 = new();
-Day11 day11 = new();*/
-Day12 day12 = new();
+Day11 day11 = new();
+Day12 day12 = new();*/
+Day13 day13 = new();
 
 // Main
 /*Console.WriteLine("Day 1:");
@@ -45,7 +46,9 @@ Console.WriteLine("\nDay 10:");
 day10.SyntaxScore();
 day10.AutoComplete();
 Console.WriteLine("\nDay 11:");
-day11.OctoFlashes();*/
+day11.OctoFlashes();
 Console.WriteLine("\nDay 12:");
 day12.CavePaths(1);
-day12.CavePaths(2);
+day12.CavePaths(2);*/
+Console.WriteLine("\nDay 13:");
+day13.Origami();
