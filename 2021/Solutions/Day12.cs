@@ -22,77 +22,81 @@ namespace AOC.Solutions
                 else Graph[line[1]] = new List<string> { line[0] };
             }
             Graph["end"].Clear();
+            foreach (List<string> val in Graph.Values) val.Remove("start");
         }
 
         //FINE I'll use a tree
         public void CavePaths(int smallVisitsAllowed)
         {
-            Node.Count = 0;
+            int count = 0;
             Node node = new Node("start");
+            List<string> ancestors = new();
 
             while (node != null)
             {
-                string? newVal = Graph[node.Val].FirstOrDefault(s => ValidChild(node, s, smallVisitsAllowed), null);
-                if (newVal == null) node = node.Parent;
+                string? newVal = Graph[node.Val].FirstOrDefault(s => ValidChild(node, s, smallVisitsAllowed, ancestors), null);
+                if (newVal == null)
+                {
+                    node = node.Parent;
+                    ancestors.Remove(node?.Val);
+                }
                 else
                 {
+                    ancestors.Add(node.Val);
                     node = new Node(newVal, node);
                     if (node.Val == "end")
                     {
-                        Node.Count += 1;
+                        count++;
                         node = node.Parent;
+                        ancestors.Remove(node?.Val);
                     }
                 }
             }
-            Console.WriteLine(Node.Count);
+            Console.WriteLine(count);
         }
 
-        private bool ValidChild(Node node, string? child, int smallVisitsAllowed)
+        private bool ValidChild(Node node, string? child, int smallVisitsAllowed, List<string> ancestors)
         {
-            if (child == null || child == "start" || node.Children.Contains(child)) return false;
+            if (child == null || node.Children.Contains(child)) return false;
             if (child != "end" && child == child.ToLower() &&
-                node.Ancestors.FindAll(x => x == child).Count >= 1 &&
-                (smallVisitsAllowed == 1 || node.TwoXSmallCave()))
+                ancestors.FindAll(x => x == child).Count >= 1 &&
+                (smallVisitsAllowed == 1 || TwoXSmallCave(ancestors, node.Val)))
             {
                 return false;
             }
             return true;
         }
 
+        private bool TwoXSmallCave(List<string> ancestors, string nodeVal)
+        {
+            List<string> smalls = ancestors.Where(x => x != "start" && x == x.ToLower()).ToList();
+            smalls.Add(nodeVal);
+            foreach (string small in smalls)
+            {
+                if (smalls.FindAll(x => x == small).Count == 2) return true;
+            }
+            return false;
+        }
+
         internal class Node
         {
             public string Val { get; set; }
             public Node Parent { get; set; }
-            public List<string> Ancestors { get; set; }
             public List<string> Children { get; set; }
-
-            public static int Count = 0;
 
             public Node(string val, Node parent = null)
             {
                 Val = val;
                 Children = new();
                 Parent = parent;
-                if (parent == null) Ancestors = new();
-                else
-                {
-                    Parent.Children.Add(this.Val);
-                    Ancestors = new(parent.Ancestors);
-                    Ancestors.Add(parent.Val);
-                }
-             }
-
-            public bool TwoXSmallCave()
-            {
-                List<string> smalls = Ancestors.Where(x => x != "start" && x == x.ToLower()).ToList();
-                smalls.Add(Val);
-                foreach (string small in smalls)
-                {
-                    if (smalls.FindAll(x => x == small).Count == 2) return true;
-                }
-                return false;
+                if (parent != null) Parent.Children.Add(this.Val);
             }
         }
+
+
+
+
+
 
 
         //-------------------------------------------------------------------------------------
