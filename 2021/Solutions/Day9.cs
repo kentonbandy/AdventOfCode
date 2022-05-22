@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AOC.Solutions
 {
     internal class Day9
@@ -14,7 +9,7 @@ namespace AOC.Solutions
 
         public Day9()
         {
-            List<List<char>> chars = Helpers.readFile(9).Select(s => s.ToCharArray().ToList()).ToList();
+            List<List<char>> chars = Helpers.ReadFile(9).Select(s => s.ToCharArray().ToList()).ToList();
             map = chars.Select(l => l.Select(n => (int)Char.GetNumericValue(n)).ToList()).ToList();
             W = map[0].Count - 1;
             H = map.Count - 1;

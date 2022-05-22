@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AOC.Solutions
 {
     internal class Day3
     {
         public void Day3_1()
         {
-            List<string> bin = Helpers.readFile(3);
+            List<string> bin = Helpers.ReadFile(3);
             Dictionary<int, int> counts = new();
             foreach (string bit in bin) for (int i = 0; i < bit.Length; i++)
                 {
@@ -31,7 +26,7 @@ namespace AOC.Solutions
 
         public void Day3_2()
         {
-            List<string> oxy = Helpers.readFile(3);
+            List<string> oxy = Helpers.ReadFile(3);
             List<string> co2 = oxy.ConvertAll(s => new string(s));
             string oxyString = reduceList(oxy, true);
             string co2String = reduceList(co2, false);

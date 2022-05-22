@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AOC.Solutions
 {
     internal class Day5
     {
         public void Vents(bool isPart2 = false)
         {
-            List<string> rawInput = Helpers.readFile(5);
+            List<string> rawInput = Helpers.ReadFile(5);
             Diagram diagram = new();
             List<Line> lines = new();
             foreach (string line in rawInput) lines.Add(new Line(line));

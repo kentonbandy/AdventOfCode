@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AOC.Solutions
 {
     internal class Day12
@@ -12,7 +7,7 @@ namespace AOC.Solutions
 
         public Day12()
         {
-            List<string[]> lines = Helpers.readFile(12).Select(l => l.Split("-").ToArray()).ToList();
+            List<string[]> lines = Helpers.ReadFile(12).Select(l => l.Split("-").ToArray()).ToList();
             Graph = new();
             foreach (string[] line in lines)
             {

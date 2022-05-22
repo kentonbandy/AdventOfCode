@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AOC.Solutions
 {
     internal class Day7
     {
         public void CrabPositioner()
         {
-            List<int> positions = Helpers.readFile(7)[0].Split(',').Select(s => Convert.ToInt32(s)).ToList();
+            List<int> positions = Helpers.ReadFile(7)[0].Split(',').Select(s => Convert.ToInt32(s)).ToList();
             int max = 0;
             foreach (int i in positions) if (i > max) max = i;
             int bestFuel = -1;
@@ -26,7 +21,7 @@ namespace AOC.Solutions
 
         public void CrabPositioner2()
         {
-            List<int> positions = Helpers.readFile(7)[0].Split(',').Select(s => Convert.ToInt32(s)).ToList();
+            List<int> positions = Helpers.ReadFile(7)[0].Split(',').Select(s => Convert.ToInt32(s)).ToList();
             int max = 0;
             foreach (int i in positions) if (i > max) max = i;
             int ave = positions.Aggregate((acc, cur) => acc + cur) / positions.Count();

@@ -8,7 +8,7 @@ namespace AOC
 {
     internal class Helpers
     {
-        public static List<string> readFile(int day)
+        public static List<string> ReadFile(int day)
         {
             string file = @$"C:\Users\Kenny\coding\AOC\2021\Input\{(day > 9 ? day : $"0{day}")}_input.txt";
             if (file == null) return null;
@@ -34,7 +34,7 @@ namespace AOC
             return strings;
         }
 
-        public static List<int> convertListToInt(List<string> strings)
+        public static List<int> ConvertListToInt(List<string> strings)
         {
             return strings.Select(s => Convert.ToInt32(s)).ToList();
         }

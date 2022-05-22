@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AOC.Solutions
 {
@@ -11,7 +8,7 @@ namespace AOC.Solutions
         //works for part 1 but fails part 2
         public void Angler1(int days)
         {
-            List<int> anglerfish = Helpers.readFile(6)[0].Split(',').Select(x => Convert.ToInt32(x)).ToList();
+            List<int> anglerfish = Helpers.ReadFile(6)[0].Split(',').Select(x => Convert.ToInt32(x)).ToList();
             List<int> newAnglerfish = new();
             for (int i = 0; i < days; i++)
             {
@@ -33,7 +30,7 @@ namespace AOC.Solutions
         //works for both parts and far more efficient
         public void Angler2(int days)
         {
-            List<int> rawData = Helpers.readFile(6)[0].Split(',').Select(x => Convert.ToInt32(x)).ToList();
+            List<int> rawData = Helpers.ReadFile(6)[0].Split(',').Select(x => Convert.ToInt32(x)).ToList();
             Dictionary<int, long> blank = new()
             {
                 { 0, 0 },
@@ -65,7 +62,7 @@ namespace AOC.Solutions
         // This works for part 1 but fails for part 2
         public void AnglerBad(int days)
         {
-            StringBuilder anglerfish = new(Helpers.readFile(6)[0]);
+            StringBuilder anglerfish = new(Helpers.ReadFile(6)[0]);
             anglerfish.Append(",");
             StringBuilder newAnglerfish = new();
             StringBuilder temp = new();

@@ -53,8 +53,10 @@ Console.WriteLine("\nDay 12:");
 day12.CavePaths(1);
 day12.CavePaths(2);
 Console.WriteLine("\nDay 13:");
-day13.Origami();*/
-//Console.WriteLine("\nDay 14:");
-//day14.Polymerize(10);
-//day14.Polymerize3(40);
+day13.Origami();
+Console.WriteLine("\nDay 14:");
+day14.Polymerize(10);
+day14.Polymerize3(40);*/
 Console.WriteLine("\nDay 15:");
+day15.Navigate();
+day15.Navigate(5,5);

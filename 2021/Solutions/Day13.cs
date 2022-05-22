@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AOC.Solutions
 {
     internal class Day13
@@ -18,7 +13,7 @@ namespace AOC.Solutions
             Folds = new();
             int maxX = 0;
             int maxY = 0;
-            List<string> rawInput = Helpers.readFile(13);
+            List<string> rawInput = Helpers.ReadFile(13);
             foreach (string s in rawInput)
             {
                 if (s == "") continue;

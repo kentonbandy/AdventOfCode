@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AOC.Solutions
 {
     internal class Day2
     {
         public void Day2_1()
         {
-            List<string> commands = Helpers.readFile(2);
+            List<string> commands = Helpers.ReadFile(2);
             int hor = 0, dep = 0;
             foreach (string cmd in commands)
             {
@@ -26,7 +21,7 @@ namespace AOC.Solutions
         public void Day2_2()
         {
 
-            List<string> commands = Helpers.readFile(2);
+            List<string> commands = Helpers.ReadFile(2);
             int hor = 0, dep = 0, aim = 0;
             foreach (string cmd in commands)
             {

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AOC.Solutions
 {
     internal class Day10
@@ -17,7 +12,7 @@ namespace AOC.Solutions
 
         public Day10()
         {
-            Lines = Helpers.readFile(10);
+            Lines = Helpers.ReadFile(10);
             Match = new() {{ ')', '(' },    { ']', '[' },   { '}', '{' },   { '>', '<' }};
             Score = new() {{ ')', 3 },      { ']', 57 },    { '}', 1197 },  { '>', 25137 }};
             Score2 = new(){{ '(', 1 },      { '[', 2 },     { '{', 3 },     { '<', 4 }};

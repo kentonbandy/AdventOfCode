@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AOC.Solutions
 {
@@ -16,7 +13,7 @@ namespace AOC.Solutions
 
         public Day14()
         {
-            List<string> rawInput = Helpers.readFile(14);
+            List<string> rawInput = Helpers.ReadFile(14);
             Poly = new(rawInput[0].ToCharArray());
             Poly2 = new(rawInput[0]);
             Poly3 = new();
@@ -30,7 +27,7 @@ namespace AOC.Solutions
             }
         }
 
-        // this solution consistently gives an answer 1 under the correct answer so I should probably figure out what's happening
+        // good solution
         public void Polymerize3(int steps)
         {
             HashSet<char> charSet = new(Template.Values);
@@ -40,9 +37,12 @@ namespace AOC.Solutions
             foreach (string s in Template.Keys) blankPairs[s] = 0;
             Dictionary<string, long> pairs;
             Dictionary<string, long> newPairs;
+            int polyLen = Poly4.Length;
 
-            for (int i = 0; i < Poly4.Length - 1; i++)
+            for (int i = 0; i < polyLen; i++)
             {
+                counts[Poly4[i]]++;
+                if (i == polyLen - 1) break;
                 pairs = new(blankPairs);
                 pairs[$"{Poly4[i]}{Poly4[i + 1]}"]++;
                 for (int j = 0; j < steps; j++)

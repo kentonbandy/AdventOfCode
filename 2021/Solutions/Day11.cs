@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AOC.Solutions
 {
     internal class Day11
@@ -12,7 +7,7 @@ namespace AOC.Solutions
         
         public Day11()
         {
-            Octos = Helpers.readFile(11).Select(l => l.Select(c => c - '0').ToArray()).ToArray();
+            Octos = Helpers.ReadFile(11).Select(l => l.Select(c => c - '0').ToArray()).ToArray();
         }
         
         public void OctoFlashes()

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace AOC.Solutions
 {
     internal class Day8
@@ -24,7 +19,7 @@ namespace AOC.Solutions
 
         public void UniqueSegments()
         {
-            List<string> segments = Helpers.readFile(8);
+            List<string> segments = Helpers.ReadFile(8);
             int allUniqueSegs = 0;
             foreach (string segment in segments)
             {
@@ -37,7 +32,7 @@ namespace AOC.Solutions
 
         public void SumOutputs()
         {
-            List<string> segments = Helpers.readFile(8);
+            List<string> segments = Helpers.ReadFile(8);
             int sum = 0;
             foreach (string s in segments) sum += decodeOutput(s, decodeConnections(s));
             Console.WriteLine(sum);
