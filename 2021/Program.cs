@@ -13,8 +13,9 @@ Day10 day10 = new();
 Day11 day11 = new();
 Day12 day12 = new();
 Day13 day13 = new();
-Day14 day14 = new();*/
-Day15 day15 = new();
+Day14 day14 = new();
+Day15 day15 = new();*/
+Day16 day16 = new();
 
 // Main
 /*Console.WriteLine("Day 1:");
@@ -56,7 +57,9 @@ Console.WriteLine("\nDay 13:");
 day13.Origami();
 Console.WriteLine("\nDay 14:");
 day14.Polymerize(10);
-day14.Polymerize3(40);*/
+day14.Polymerize3(40);
 Console.WriteLine("\nDay 15:");
 day15.Navigate();
-day15.Navigate(5,5);
+day15.Navigate(5,5);*/
+Console.WriteLine("\nDay 16:");
+day16.RunDecoder();
