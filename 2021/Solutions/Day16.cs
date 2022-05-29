@@ -6,25 +6,6 @@ namespace AOC.Solutions
     internal class Day16
     {
         string Binary { get; set; }
-        Dictionary<char, string> HexDict = new()
-        {
-            { '0', "0000" },
-            { '1', "0001" },
-            { '2', "0010" },
-            { '3', "0011" },
-            { '4', "0100" },
-            { '5', "0101" },
-            { '6', "0110" },
-            { '7', "0111" },
-            { '8', "1000" },
-            { '9', "1001" },
-            { 'A', "1010" },
-            { 'B', "1011" },
-            { 'C', "1100" },
-            { 'D', "1101" },
-            { 'E', "1110" },
-            { 'F', "1111" }
-        };
 
         public Day16()
         {
@@ -38,7 +19,7 @@ namespace AOC.Solutions
             Console.WriteLine(EvaluateTransmission(new RefString(Binary)));
         }
 
-        // recursively adds the versions and cuts off the rest of the packet
+        // recursively adds the versions and cuts off the rest of the packet (part 1)
         public int SumVersions(RefString bin)
         {
             if (!bin.Val.Contains('1')) return 0;
@@ -59,7 +40,7 @@ namespace AOC.Solutions
             return version + SumVersions(bin);
         }
 
-        // recursively performs packet operations
+        // recursively performs packet operations (part 2)
         public long EvaluateTransmission(RefString bin)
         {
             if (!bin.Val.Contains('1')) return 0;
@@ -70,10 +51,7 @@ namespace AOC.Solutions
             if (typeId == 4) // literal value
             {
                 string binVal = "";
-                while (bin.Cut(1) == "1")
-                {
-                    binVal += bin.Cut(4);
-                }
+                while (bin.Cut(1) == "1") binVal += bin.Cut(4);
                 binVal += bin.Cut(4);
                 return Convert.ToInt64(binVal, 2);
             }
@@ -108,11 +86,12 @@ namespace AOC.Solutions
         private string HexToBinary(string hex)
         {
             StringBuilder output = new();
-            foreach (char c in hex) output.Append(HexDict[c]);
+            foreach (char c in hex) output.Append(Convert.ToString(Convert.ToInt32(c.ToString(), 16), 2).PadLeft(4, '0'));
             return output.ToString();
         }
     }
 
+    // I need strings to behave like the reference types that they are >:(
     internal class RefString
     {
         public string Val { get; set; }
