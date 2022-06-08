@@ -15,8 +15,9 @@ Day12 day12 = new();
 Day13 day13 = new();
 Day14 day14 = new();
 Day15 day15 = new();
-Day16 day16 = new();*/
-Day17 day17 = new();
+Day16 day16 = new();
+Day17 day17 = new();*/
+Day18 day18 = new();
 
 // Main
 /*Console.WriteLine("Day 1:");
@@ -63,6 +64,8 @@ Console.WriteLine("\nDay 15:");
 day15.Navigate();
 day15.Navigate(5,5);
 Console.WriteLine("\nDay 16:");
-day16.RunDecoder();*/
+day16.RunDecoder();
 Console.WriteLine("\nDay 17:");
-day17.Launch();
+day17.Launch();*/
+Console.WriteLine("\nDay 18:");
+day18.BracketHell();
