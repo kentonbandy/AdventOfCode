@@ -10,7 +10,7 @@ namespace AOC
     {
         public static List<string> ReadFile(int day)
         {
-            string file = @$"C:\Users\Kenny\coding\AOC\2021\Input\{(day > 9 ? day : $"0{day}")}_input.txt";
+            string file = @$"C:\Users\Kenny\coding\AOC\2021\CSharp\Input\{(day > 9 ? day : $"0{day}")}_input.txt";
             if (file == null) return null;
             List<string> strings = new();
             if (File.Exists(file))

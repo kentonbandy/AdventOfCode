@@ -224,7 +224,7 @@ def larges_manhattan_distance(scanners: list):
 
 def build_beacon_map():
     """builds a 3d map of all of the beacons detected by scanners and prints the desired results."""
-    lines = file_reader.get_lines('2022/inputs/2021_19.txt')
+    lines = file_reader.get_lines('2021/python/inputs/19.txt')
     data = parse_data(lines)
     scanners = [Scanner(data.index(group), group) for group in data]
     scanner0 = scanners.pop(0)
