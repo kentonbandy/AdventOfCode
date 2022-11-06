@@ -1,7 +1,7 @@
 import file_reader
 
 # AoC 2021 day 1 for practice
-lines = file_reader.get_int_lines('inputs/2021_01.txt')
+lines = file_reader.get_int_lines('2022/inputs/2021_01.txt')
 
 def practice01():
     """https://adventofcode.com/2021/day/1"""
