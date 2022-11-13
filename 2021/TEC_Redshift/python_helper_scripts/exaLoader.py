@@ -10,17 +10,18 @@ problem_num = '01'
 lines = file_reader.get_lines(f'2021/python/inputs/{problem_num}.txt')
 
 exascript = ''
+data = 'DATA'
 exa = 0
 for i in range(len(lines)):
-    if i % (999 - exa) == 0:
-        exa = int(i / (999 - exa))
-        if i != 0:
-            exascript += '\n'
-        exascript += f'EXA {exa}\n'
-        for n in range(exa):
-            exascript += 'WAIT\n'
-        exascript += 'MAKE\n'
-    exascript += f'COPY {lines[i]} F\n'
+    # pass input data. format is 'DATA 1 2 3 4...'. each line has a 24 char limit.
+    nextnum = f' {lines[i]}'
+    if (len(data) + len(nextnum) <= 24):
+        data += nextnum
+    else:
+        data += '\n'
+        exascript += data
+        data = f'DATA {lines[i]}'
+exascript += data
 
 with open(f'2021/TEC_Redshift/python_helper_scripts/exa_scripts/{problem_num}.txt', 'w') as f:
     f.write(exascript)
