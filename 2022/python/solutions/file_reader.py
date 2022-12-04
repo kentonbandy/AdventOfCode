@@ -4,7 +4,7 @@ def get_lines(filepath):
         return [line.rstrip() for line in file.readlines()]
 
 def get_int_lines(filepath):
-    """Returns a list of integers representing each line in the given file containing integers"""
+    """Returns a list of integers or None representing each line in the given file containing integers"""
     lines = get_lines(filepath)
     for i in range(len(lines)):
         try:
