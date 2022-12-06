@@ -1,7 +1,7 @@
 import file_reader
 
 file_num = __file__.split("\\")[-1].split('.')[0]
-lines = file_reader.get_lines(f"2022/python/inputs/{file_num}.txt")
+lines = file_reader.get_lines(file_num)
 rawstacks = lines[:8]
 moves = [list(map(int, line.split(' ')[1::2])) for line in lines[10:]]
 stacks = []

@@ -1,11 +1,12 @@
-def get_lines(filepath):
-    """Returns a list of strings representing each line in the given file"""
+def get_lines(file_num):
+    """Returns a list of strings representing each line in the given file number"""
+    filepath = "{}\\inputs\\{}.txt".format('\\'.join(__file__.split('\\')[:-2]), file_num)
     with open(filepath) as file:
         return [line.rstrip() for line in file.readlines()]
 
-def get_int_lines(filepath):
+def get_int_lines(file_num):
     """Returns a list of integers or None representing each line in the given file containing integers"""
-    lines = get_lines(filepath)
+    lines = get_lines(file_num)
     for i in range(len(lines)):
         try:
             lines[i] = int(lines[i])
