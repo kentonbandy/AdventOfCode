@@ -1,6 +1,7 @@
 import file_reader
 
-lines = file_reader.get_lines('2022/python/inputs/02.txt')
+file_num = __file__.split("\\")[-1].split('.')[0]
+lines = file_reader.get_lines(f"2022/python/inputs/{file_num}.txt")
 guide = {
     "A X": 4,
     "A Y": 8,
