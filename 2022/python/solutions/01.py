@@ -1,7 +1,6 @@
 import file_reader
 
-file_num = __file__.split("\\")[-1].split('.')[0]
-lines = file_reader.get_int_lines(file_num)
+lines = file_reader.get_int_lines(__file__)
 if lines[-1] is not None: lines.append(None)
 cals = []
 elf = 0

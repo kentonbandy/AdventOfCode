@@ -1,5 +1,6 @@
-def get_lines(file_num):
-    """Returns a list of strings representing each line in the given file number"""
+def get_lines(path):
+    """Returns a list of strings representing each line in the text file that corresponds with the given path"""
+    file_num = path.split("\\")[-1].split('.')[0]
     filepath = "{}\\inputs\\{}.txt".format('\\'.join(__file__.split('\\')[:-2]), file_num)
     with open(filepath) as file:
         return [line.rstrip() for line in file.readlines()]
