@@ -22,6 +22,7 @@ class Knot:
 
 knots = [Knot() for _ in range(10)]
 head = knots[0]
+framecount = 0
 
 for [d, m] in lines:
     while m > 0:
@@ -34,7 +35,9 @@ for [d, m] in lines:
         m -= 1
 
         # visualizer
-        frame = [['.' for _ in range(21)] for _ in range(21)]
+        bearingspace = 8
+        fps = 60
+        frame = [['+' if ((head.x + i) % bearingspace == 0 and (head.y + j) % bearingspace == 0) else '.' for i in range(21)] for j in range(21)]
         for knot in knots:
             x = knot.x - head.x + 10
             y = knot.y - head.y + 10
@@ -43,4 +46,6 @@ for [d, m] in lines:
         os.system('cls')
         for line in frame:
             print(line)
-        time.sleep(0.05)
+        framecount += 1
+        print(f'Frame {framecount}/11734')
+        time.sleep(1/fps)
