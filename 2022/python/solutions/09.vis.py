@@ -4,8 +4,6 @@ import os
 
 lines = list(map(lambda l: [l[0],int(l[1])], [line.split(' ') for line in file_reader.get_lines(__file__)]))
 
-maxx, maxy = 0,0
-
 class Knot:
     def __init__(self):
         self.x = 0
@@ -25,8 +23,10 @@ head = knots[0]
 totalframes = sum([line[1] for line in lines])
 framecount = 0
 #settings
+height = 21
+width = 31
 bearingspace = 8
-fps = 61
+fps = 61 # not actual frames per second, but close enough
 
 for [d, m] in lines:
     while m > 0:
@@ -39,10 +39,10 @@ for [d, m] in lines:
         m -= 1
 
         # visualizer
-        frame = [['+' if ((head.x + i) % bearingspace == 0 and (head.y + j) % bearingspace == 0) else '.' for i in range(21)] for j in range(21)]
+        frame = [['+' if ((head.x + i) % bearingspace == 0 and (head.y + j) % bearingspace == 0) else '.' for i in range(width)] for j in range(height)]
         for knot in knots:
-            x = knot.x - head.x + 10
-            y = knot.y - head.y + 10
+            x = knot.x - head.x + int(width/2)
+            y = knot.y - head.y + int(height/2)
             frame[y][x] = '#'
         frame = '\n'.join([' '.join(line) for line in frame])
         os.system('cls')
