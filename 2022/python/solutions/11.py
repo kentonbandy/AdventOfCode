@@ -35,5 +35,5 @@ def monkey_business(rounds, monkeys, divby3):
             m.items = []
     return math.prod(sorted([m.insp for m in monkeys], reverse = True)[:2])
 
-print(monkey_business(p1rounds, p1monkeys, True))
-print(monkey_business(p2rounds, p2monkeys, False))
+print(monkey_business(p1rounds, p1monkeys, True))   # part 1
+print(monkey_business(p2rounds, p2monkeys, False))  # part 2
