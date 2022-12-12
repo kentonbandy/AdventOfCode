@@ -1,21 +1,17 @@
 import file_reader
 import math
 
-rawlines = file_reader.get_lines(__file__)
-lines = [[]]
-for line in rawlines:
-    if line == '': lines.append([])
-    else: lines[-1].append(line.strip())
+groups = file_reader.get_line_groups(__file__)
 
 class Monkey:
-    def __init__(self, lines):
-        self.id = int(lines[0].split(' ')[1][:1])
-        self.items = [int(n.strip()) for n in lines[1].split(':')[1].split(',')]
-        ops = lines[2].split('=')[1].strip().split(' ')[1:]
+    def __init__(self, group):
+        self.id = int(group[0].split(' ')[1][:1])
+        self.items = [int(n.strip()) for n in group[1].split(':')[1].split(',')]
+        ops = group[2].split('=')[1].strip().split(' ')[1:]
         self.ops = [ops[0] == '+', int(ops[1]) if ops[1] != 'old' else None]
-        self.div = int(lines[3].split('by')[1].strip())
-        self.t = int(lines[4].split('monkey')[1].strip())
-        self.f = int(lines[5].split('monkey')[1].strip())
+        self.div = int(group[3].split('by')[1].strip())
+        self.t = int(group[4].split('monkey')[1].strip())
+        self.f = int(group[5].split('monkey')[1].strip())
         self.insp = 0
 
     def op(self, item):
@@ -24,8 +20,8 @@ class Monkey:
 
 p1rounds = 20
 p2rounds = 10000
-p1monkeys = [Monkey(lst) for lst in lines]
-p2monkeys = [Monkey(lst) for lst in lines]
+p1monkeys = [Monkey(group) for group in groups]
+p2monkeys = [Monkey(group) for group in groups]
 
 def monkey_business(rounds, monkeys, divby3):
     lcm = math.lcm(*[m.div for m in monkeys])
