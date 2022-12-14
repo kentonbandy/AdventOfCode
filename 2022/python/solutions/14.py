@@ -30,7 +30,7 @@ def dropsand(cavemap: set, sandfall=(500,0)):
         cavemap.add(coord)
         return (sandcount + 1, False)
 
-    while (500,0) not in cavemap:
+    while sandfall not in cavemap:
         falling = True
         (x,y) = sandfall
         while falling:
