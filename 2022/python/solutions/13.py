@@ -31,8 +31,7 @@ def isinorder(left, right):
 
 def finddividerinds(lst):
     groups.append([[[2]],[[6]]])
-    d1 = 1
-    d2 = 1
+    d1,d2 = 1,1
     for packetgroup in lst:
         for packet in packetgroup:
             if not isinorder([[2]], packet): d1 += 1
