@@ -1,7 +1,2 @@
 **/__pycache__/
 **/*.pyc
-**/inputs/
-**/Input/
-**/.vs/
-**/bin/
-**/obj/
