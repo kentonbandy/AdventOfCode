@@ -2,3 +2,6 @@
 **/*.pyc
 **/inputs/
 **/Input/
+**/.vs/
+**/bin/
+**/obj/
