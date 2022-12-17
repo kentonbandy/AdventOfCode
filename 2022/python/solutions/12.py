@@ -52,7 +52,7 @@ def checkadd_option(node, option, part2):
 (current, end, unvisited_with_distance) = load_height_map(lines)
 (current2, end2, unvisited_with_distance2) = load_height_map(lines, True)
 
-def find_shortest_path(current, uwd, end):
+def find_shortest_path(current, uwd, end=None):
     while (current.val != key.index('a')) if end is None else(current != end):
         for option in current.options:
             if option in uwd:
@@ -68,4 +68,4 @@ def find_shortest_path(current, uwd, end):
     return current.dis
 
 print(find_shortest_path(current, unvisited_with_distance, end))      # part 1
-print(find_shortest_path(current2, unvisited_with_distance2, None))   # part 2
+print(find_shortest_path(current2, unvisited_with_distance2))   # part 2
