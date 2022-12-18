@@ -29,21 +29,41 @@ def set_tunnels():
         for name in valve.tunnelnames:
             valve.tunnels.append(next(t for t in valves if t.name == name))
 
-def get_directions(current: Valve):
-    closed_nonzero = list(filter(lambda v : not v.open and v.flow > 0 and v.name != current.name,valves))
+
+
+
+
+def get_directions(current: Valve, localvalves = list(filter(lambda v : not v.open and v.flow > 0, valves))):
+    closed_nonzero = list(filter(lambda v : v.name != current.name, localvalves))
     if len(closed_nonzero) == 0: return None
-    if len(closed_nonzero) == 1: return findpath(current,closed_nonzero[0])
-    priorities = {}
-    # get valve distances first
-    for valve in closed_nonzero:
-        priorities[valve.name] = getshortestpathdist(current,valve)
-    maxdist = max([priorities[key] for key in priorities])
-    # calculate valve priority
-    for valve in closed_nonzero:
-        priorities[valve.name] = valve.flow if maxdist == priorities[valve.name] else valve.flow * (maxdist - priorities[valve.name])
+    if len(closed_nonzero) == 1: return findpath(current, closed_nonzero[0])
+    distances = get_valve_distances(current, closed_nonzero)
+    priorities = get_valve_priorities(distances, closed_nonzero)
     maxpriority = max([v for v in priorities.values()])
     target = next(v for v in closed_nonzero if priorities[v.name] == maxpriority)
     return findpath(current,target)
+
+def get_valve_distances(current, localvalves):
+    distances = {}
+    for valve in localvalves:
+        distances[valve.name] = getshortestpathdist(current, valve)
+    return distances
+
+def get_valve_priorities(current, localvalves, priority = 0):
+    for valve in localvalves:
+        pass
+
+
+
+    distances = get_valve_distances(current, localvalves)
+    maxdist = max([distances[key] for key in distances])
+    for valve in localvalves:
+        if valve.name in priorities.keys:
+            priorities[valve.name] += valve.flow if maxdist == distances[valve.name] else valve.flow * (maxdist - distances[valve.name])
+        else:
+            priorities[valve.name] = valve.flow if maxdist == distances[valve.name] else valve.flow * (maxdist - distances[valve.name])
+        
+    return priorities
 
 def findpath(current: Valve,target: Valve):
     getshortestpathdist(current,target)
