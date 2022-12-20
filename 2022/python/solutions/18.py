@@ -1,5 +1,6 @@
 import file_reader
 
+
 class Cube:
     def __init__(self, x: int, y: int, z: int, form: str):
         self.x = x
@@ -8,7 +9,9 @@ class Cube:
         self.coords = (x, y, z)
         self.form = form  # lava/water/None
 
-droplets = [Cube(*[int(n) for n in line.split(',')], None) for line in file_reader.get_lines(__file__)]
+
+droplets = [Cube(*[int(n) for n in line.split(',')], None)
+            for line in file_reader.get_lines(__file__)]
 
 maxx = max([drop.x for drop in droplets])
 minx = min([drop.x for drop in droplets])
@@ -46,6 +49,7 @@ while change:
             change = True
 
 air = set(filter(lambda c: c.form is None, grid))
+
 
 def get_surface_area(drops):
     surface_area = 0
