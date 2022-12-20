@@ -38,7 +38,6 @@ def collapse():
     chamber = newchamber
 
 magicrockmath = 15_435 + ((1_000_000_000_000 - 15_435) % 6_860)
-print(magicrockmath)
 
 while rockcount < magicrockmath:
     rock = [[x+2, y+stackheight()+4] for (x,y) in rocks[rockcount % 5]]
@@ -76,16 +75,15 @@ while rockcount < magicrockmath:
         if atrest:
             chamber.update([(x,y) for [x,y] in rock])
             if stackheight() > 1000: collapse()
-            #if rockcount == 2022: print(stackheight() + totalheight)
+            if rockcount == 2022: print(stackheight() + totalheight)    # part 1
             if rockcount % 1_000 == 0: pass
                 #print(stackheight())
         else:
             for coord in rock:
                 coord[1] -= 1
 
-print(stackheight() + totalheight + (145_772_592 * 10_844))
+print(stackheight() + totalheight + (145_772_592 * 10_844))             # part 2
 
 # magic rock math, because I ain't got time to write the code right now
-# do 15_435, get total
-# do (1_000_000_000_000 - 15_435) % 6_860 more
+# do 15_435 + (1_000_000_000_000 - 15_435) % 6_860, get total
 # add 145_772_592 * 10_844
