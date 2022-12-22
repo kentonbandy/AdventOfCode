@@ -47,7 +47,7 @@ def riddle2(stack):
         if turn[0] == 'root':
             num = monkeys[other]
         elif turn[3] == prev and turn[2] == '-':
-            num = monkeys[turn[1]] - num
+            num = monkeys[other] - num
         else:
             num = int(eval(f'{num} {opposites[turn[2]]} {monkeys[other]}'))
 
