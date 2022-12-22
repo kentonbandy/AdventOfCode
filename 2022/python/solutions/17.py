@@ -76,8 +76,6 @@ while rockcount < magicrockmath:
             chamber.update([(x,y) for [x,y] in rock])
             if stackheight() > 1000: collapse()
             if rockcount == 2022: print(stackheight() + totalheight)    # part 1
-            if rockcount % 1_000 == 0: pass
-                #print(stackheight())
         else:
             for coord in rock:
                 coord[1] -= 1
