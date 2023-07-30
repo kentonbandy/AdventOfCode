@@ -3,7 +3,6 @@ import file_reader
 import itertools
 
 lines = file_reader.get_lines(__file__)
-distances = 
 distances = [{'cities': [lst[0], lst[2]], 'distance': int(lst[4])} for lst in [line.split() for line in lines]]
 dmap = {tuple(sorted(distance['cities'])): distance['distance'] for distance in distances}
 
