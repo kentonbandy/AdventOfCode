@@ -1,13 +1,13 @@
 import sys
 import file_reader
-import itertools
+import helpers
 
 lines = file_reader.get_lines(__file__)
 distances = [{'cities': [lst[0], lst[2]], 'distance': int(lst[4])} for lst in [line.split() for line in lines]]
 dmap = {tuple(sorted(distance['cities'])): distance['distance'] for distance in distances}
 
 cities = list(set([city for citypair in [distance['cities'] for distance in distances] for city in citypair]))
-permutations = list(itertools.permutations(range(len(cities))))
+permutations = helpers.get_index_permutations(cities)
 
 min_distance = sys.maxsize
 max_distance = 0

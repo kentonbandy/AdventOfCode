@@ -1,5 +1,5 @@
 import file_reader
-import itertools
+import helpers
 import sys
 
 lines = file_reader.get_lines(__file__)
@@ -20,7 +20,7 @@ def optimize_happiness(hdict, addname=None):
     names = list(set([key[0] for key in hdict.keys()]))
     if addname is not None:
         names.append(addname)
-    permutations = list(itertools.permutations(range(len(names))))
+    permutations = helpers.get_index_permutations(names)
     optimal_happiness = -sys.maxsize
     for perm in permutations:
         this_happiness = run_permutation(perm, names, hdict, addname)
