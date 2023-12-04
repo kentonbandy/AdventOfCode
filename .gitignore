@@ -1,3 +1,6 @@
 **/__pycache__/
 **/*.pyc
 **/*.vscode
+**/muhcookie.js
+node_modules/
+**/inputs
