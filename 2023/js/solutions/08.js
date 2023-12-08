@@ -13,7 +13,7 @@ const map = lines.slice(1).reduce((a,c) => {
 // get highest count of each prime factor from traverse steps of every ghost
 const ghostPrimeCounts = Object.keys(map)
   .filter(k => k[2] === "A")
-  .map(g => traverse(true, g))
+  .map(g => traverse(g))
   .map(g => getPrimeFactors(g))
   .reduce((a, c) => {
     c.forEach(p => {
@@ -26,13 +26,13 @@ const ghostPrimeCounts = Object.keys(map)
 console.log(traverse())
 console.log(ghostMath(ghostPrimeCounts));
 
-function traverse(ghost = false, start = "AAA") {
+function traverse(ghostStart = null) {
   let step = 0;
-  let current = start;
+  let current = ghostStart ?? "AAA";
   let ind;
   let inst;
 
-  while (ghost ? current[2] !== "Z" : current !== "ZZZ") {
+  while (ghostStart ? current[2] !== "Z" : current !== "ZZZ") {
     inst = getInstruction(step);
     ind = inst === "L" ? 0 : 1;
     current = map[current][ind];
