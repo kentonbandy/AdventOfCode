@@ -1,4 +1,4 @@
-export default Array.prototype.splitArray = function(callback) {
+Array.prototype.splitArray = function(callback) {
   let split = [];
   let current = [];
   for (const item of this) {
@@ -13,3 +13,9 @@ export default Array.prototype.splitArray = function(callback) {
   if (current.length) split.push(current);
   return split;
 }
+
+Array.prototype.count = function(item) {
+  return this.reduce((total, current) => total + (current === item), 0);
+}
+
+export default {};
