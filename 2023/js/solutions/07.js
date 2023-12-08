@@ -66,9 +66,8 @@ function sortHands(a, b, jokersWild = false) {
 
   const points = jokersWild ? jokerpoints : cardpoints;
   for (let i = 0; i < a.cards.length; i++) {
-    const astrength = points[a.cards[i]];
-    const bstrength = points[b.cards[i]];
-    if (astrength !== bstrength) return astrength - bstrength;
+    const diff = points[a.cards[i]] - points[b.cards[i]];
+    if (diff !== 0) return diff;
   }
   return 0;
 }
