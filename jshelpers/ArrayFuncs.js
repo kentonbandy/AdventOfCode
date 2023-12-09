@@ -18,4 +18,12 @@ Array.prototype.count = function(item) {
   return this.reduce((total, current) => total + (current === item), 0);
 }
 
+Array.prototype.sum = function() {
+  return this.reduce((total, current) => total + current, 0);
+}
+
+Array.prototype.product = function() {
+  return this.reduce((total, current) => total * current, 1);
+}
+
 export default {};

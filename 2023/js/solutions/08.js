@@ -1,5 +1,5 @@
 import { getInput } from '../../../jshelpers/InputGetter.js';
-import ArrayFuncs from '../../../jshelpers/ArrayFuncs.js';
+import '../../../jshelpers/ArrayFuncs.js';
 import { getPrimeFactors } from '../../../jshelpers/Maths.js';
 
 

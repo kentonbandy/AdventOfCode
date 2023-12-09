@@ -1,5 +1,5 @@
 import { getInput } from '../../../jshelpers/InputGetter.js';
-import ArrayFuncs from '../../../jshelpers/ArrayFuncs.js';
+import '../../../jshelpers/ArrayFuncs.js';
 
 const lines = await getInput(import.meta.url);
 const seeds = lines[0].substring(7).split(" ").map(x => parseInt(x));

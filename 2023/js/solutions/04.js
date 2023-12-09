@@ -1,4 +1,5 @@
 import { getInput } from '../../../jshelpers/InputGetter.js';
+import '../../../jshelpers/ArrayFuncs.js';
 
 const lines = await getInput(import.meta.url);
 
@@ -33,7 +34,7 @@ function cardception(matchValues) {
       cardcount[j] += cardcount[i];
     }
   }
-  return cardcount.reduce((a,c) => a + c, 0);
+  return cardcount.sum();
 }
 
 function parseLines(lines) {
