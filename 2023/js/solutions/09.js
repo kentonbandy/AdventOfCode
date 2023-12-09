@@ -29,7 +29,5 @@ function getPrediction(nums, zero = false, first = false) {
   }
 
   const ind = first ? 0 : nums.length - 1;
-  return first
-    ? nums[ind] - getPrediction(diffs, allzero, first)
-    : nums[ind] + getPrediction(diffs, allzero, first);
+  return nums[ind] + (getPrediction(diffs, allzero, first) * (first ? -1 : 1));
 }
