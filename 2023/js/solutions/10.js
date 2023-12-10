@@ -6,12 +6,13 @@ const lines = await getInput(import.meta.url);
 const startcoords = findChar(lines, "S");
 const S = getSShape(startcoords.x, startcoords.y);
 const dirs = {
-  "|": ["u", "d"], "-": ["l", "r"], "L": ["u", "r"],
-  "J": ["u", "l"], "7": ["l", "d"], "F": ["r", "d"]
+  "|": ["u", "d"], "-": ["l", "r"], L: ["u", "r"],
+  J: ["u", "l"], 7: ["l", "d"], F: ["r", "d"]
 };
-const opp = { "u": "d", "d": "u", "l": "r", "r": "l" };
+const opp = { u: "d", d: "u", l: "r", r: "l" };
 
 // set current to S location
+// location object: { char, x, y, last (the direction we took to get here) }
 let current = { pipe: S, ...startcoords, last: opp[dirs[S][0]] };
 
 // sets to track unique pipe and inside coords
@@ -21,6 +22,7 @@ const inside = new Set();
 // have to move once or while loop condition will be immediately met
 current = move(current);
 // #endregion
+
 
 // #region solutions
 // part 1
@@ -33,14 +35,14 @@ console.log(loop.size / 2);
 
 // part 2
 // build inside set by checking each coordinate
-for (let y = 0; y < lines.length; y++) {
-  for (let x = 0; x < lines[y].length; x++) {
+lines.forEach((line, y) => {
+  for (let x = 0; x < line.length; x++) {
     getNeighbors(lines, x, y, true, (_, __, x, y) => {
       if (skipProcessing(x, y)) return;
       inside.add(coordString(x, y));
     });
   }
-}
+});
 console.log(inside.size);
 // #endregion
 
