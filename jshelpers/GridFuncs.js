@@ -13,7 +13,7 @@ export function getNeighbors(grid, x, y, cardinal = false, callback = null) {
   let u, ur, r, dr, d, dl, l, ul;
 
   const lookup = y > 0;
-  const lookright = x < grid.length - 1;
+  const lookright = x < grid[y].length - 1;
   const lookdown = y < grid.length - 1;
   const lookleft = x > 0;
 
@@ -34,10 +34,18 @@ export function getNeighbors(grid, x, y, cardinal = false, callback = null) {
   }
 
   if (callback) {
-    for (const neighbor of Object.values(neighbors)) {
-      if (neighbor) callback(neighbor.val, neighbor.x, neighbor.y);
+    for (const [dir, neighbor] of Object.entries(neighbors)) {
+      if (neighbor) callback(dir, neighbor.val, neighbor.x, neighbor.y);
     }
   }
 
   return neighbors;
+}
+
+export function findChar(grid, char) {
+  let x;
+  for (let y = 0; y < grid.length; y++) {
+    x = grid[y].indexOf(char);
+    if (x > -1) return { x, y };
+  }
 }
