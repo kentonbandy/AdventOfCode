@@ -38,7 +38,7 @@ console.log(loop.size / 2);
 lines.forEach((line, y) => {
   for (let x = 0; x < line.length; x++) {
     getNeighbors(lines, x, y, true, (_dir, _val, x, y) => {
-      if (skipProcessing(x, y)) return;
+      if (notInside(x, y)) return;
       inside.add(coordString(x, y));
     });
   }
@@ -65,9 +65,9 @@ function coordString(x, y) {
   return `${x},${y}`;
 }
 
-function skipProcessing(x, y) {
+function notInside(x, y) {
   const key = coordString(x, y);
-  return loop.has(key) || inside.has(key) || isOutside(x, y);
+  return loop.has(key) || isOutside(x, y);
 }
 
 // we look to the right of the given coord
