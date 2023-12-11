@@ -1,5 +1,6 @@
 import { getInput } from '../../../jshelpers/InputGetter.js';
 import { getNeighbors, findChar } from '../../../jshelpers/GridFuncs.js';
+import '../../../jshelpers/ArrayFuncs.js';
 
 // #region setup
 const dirs = {
@@ -95,16 +96,14 @@ function isOutside(x, y) {
 }
 
 function getSShape(x, y) {
-  const { u, r, d, l } = getNeighbors(lines, x, y, true);
-
-  const exits = [];
-  if (dirs[u?.val]?.includes("d")) exits.push("u");
-  if (dirs[r?.val]?.includes("l")) exits.push("r");
-  if (dirs[d?.val]?.includes("u")) exits.push("d");
-  if (dirs[l?.val]?.includes("r")) exits.push("l");
+  const exits = Object.entries(getNeighbors(lines, x, y, true))
+    .reduce((a, [k, v]) => {
+    if (v && dirs[v.val]?.includes(opp[k])) a.push(k);
+    return a;
+  }, []);
 
   for (const [key, val] of Object.entries(dirs)) {
-    if (val.every(v => exits.includes(v))) return key;
+    if (val.hasSameValues(exits)) return key;
   }
 }
 // #endregion

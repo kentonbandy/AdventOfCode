@@ -26,4 +26,9 @@ Array.prototype.product = function() {
   return this.reduce((total, current) => total * current, 1);
 }
 
+Array.prototype.hasSameValues = function(arr) {
+  if (this.length !== arr.length) return false;
+  return this.every(x => arr.includes(x));
+}
+
 export default {};
