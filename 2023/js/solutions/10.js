@@ -98,9 +98,9 @@ function isOutside(x, y) {
 function getSShape(x, y) {
   const exits = Object.entries(getNeighbors(lines, x, y, true))
     .reduce((a, [k, v]) => {
-    if (v && dirs[v.val]?.includes(opp[k])) a.push(k);
-    return a;
-  }, []);
+      if (v && dirs[v.val]?.includes(opp[k])) a.push(k);
+      return a;
+    }, []);
 
   for (const [key, val] of Object.entries(dirs)) {
     if (val.hasSameValues(exits)) return key;
