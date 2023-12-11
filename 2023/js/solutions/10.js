@@ -2,14 +2,15 @@ import { getInput } from '../../../jshelpers/InputGetter.js';
 import { getNeighbors, findChar } from '../../../jshelpers/GridFuncs.js';
 
 // #region setup
-const lines = await getInput(import.meta.url);
-const startcoords = findChar(lines, "S");
-const S = getSShape(startcoords.x, startcoords.y);
 const dirs = {
   "|": ["u", "d"], "-": ["l", "r"], L: ["u", "r"],
   J: ["u", "l"], 7: ["l", "d"], F: ["r", "d"]
 };
 const opp = { u: "d", d: "u", l: "r", r: "l" };
+
+const lines = await getInput(import.meta.url);
+const startcoords = findChar(lines, "S");
+const S = getSShape(startcoords.x, startcoords.y);
 
 // set current to S location
 // location object: { char, x, y, last (the direction we took to get here) }
@@ -93,30 +94,17 @@ function isOutside(x, y) {
   return pipeString.length % 2 === 0;
 }
 
-// ugh
 function getSShape(x, y) {
   const { u, r, d, l } = getNeighbors(lines, x, y, true);
-  let up, right, down, left = false;
 
-  const pipes = {
-    "upright": "L", "updown": "|", "upleft": "J",
-    "rightdown": "F", "rightleft": "-", "leftdown": "7",
-  };
+  const exits = [];
+  if (dirs[u?.val]?.includes("d")) exits.push("u");
+  if (dirs[r?.val]?.includes("l")) exits.push("r");
+  if (dirs[d?.val]?.includes("u")) exits.push("d");
+  if (dirs[l?.val]?.includes("r")) exits.push("l");
 
-  // top exit
-  if (["F", "7", "|"].includes(u?.val)) up = true;
-  // bottom exit
-  if (["J", "L", "|"].includes(d?.val)) down = true;
-  // right exit
-  if (["J", "7", "-"].includes(r?.val)) right = true;
-  // left exit
-  if (["L", "F", "-"].includes(l?.val)) left = true;
-
-  const key = Object.entries({ up, right, left, down })
-    .reduce((a, [key, val]) => {
-      if (val) a += key;
-      return a;
-    }, "");
-  return pipes[key];
+  for (const [key, val] of Object.entries(dirs)) {
+    if (val.every(v => exits.includes(v))) return key;
+  }
 }
 // #endregion
