@@ -37,7 +37,7 @@ console.log(loop.size / 2);
 // build inside set by checking each coordinate
 lines.forEach((line, y) => {
   for (let x = 0; x < line.length; x++) {
-    getNeighbors(lines, x, y, true, (_, __, x, y) => {
+    getNeighbors(lines, x, y, true, (_dir, _val, x, y) => {
       if (skipProcessing(x, y)) return;
       inside.add(coordString(x, y));
     });
