@@ -29,26 +29,23 @@ console.log(sumDistances(expand(galaxies)));
 // part 2
 console.log(sumDistances(expand(galaxies, 1000000)));
 
+
 function sumDistances(galaxies) {
-  let distanceSum = 0;
-  galaxies.forEach(([x, y], i) => {
+  return galaxies.reduce((sum, [x, y], i) => {
     for (let j = i + 1; j < galaxies.length; j++) {
       const [a, b] = galaxies[j];
-      const distance = (Math.abs(x - a) + Math.abs(y - b));
-      distanceSum += distance;
+      sum += (Math.abs(x - a) + Math.abs(y - b));
     }
-  });
-  return distanceSum;
+    return sum;
+  }, 0);
 }
 
 function expand(galaxies, expansion = 2) {
-  const expanded = [];
-  for (const [x, y] of galaxies) {
+  return galaxies.map(([x,y]) => {
     const expX = x + (getNumsSmaller(blankX, x) * (expansion - 1));
     const expY = y + (getNumsSmaller(blankY, y) * (expansion - 1));
-    expanded.push([expX, expY]);
-  }
-  return expanded;
+    return [expX, expY];
+  });
 }
 
 function getNumsSmaller(nums, n) {
