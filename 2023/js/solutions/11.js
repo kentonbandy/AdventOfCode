@@ -2,61 +2,60 @@ import { getInput } from '../../../jshelpers/InputGetter.js';
 
 const lines = await getInput(import.meta.url);
 
-// find where galaxies are
-const yhasgalaxy = new Set();
+// find where galaxies aren't
+const blankY = [];
+const blankX = [];
+const galaxies = [];
 const xhasgalaxy = new Set();
 lines.forEach((line, y) => {
+  // populate blank y
+  if (!line.includes("#")) blankY.push(y);
   for (let x = 0; x < line.length; x++) {
     if (line[x] === "#") {
-      yhasgalaxy.add(y);
+      // add x value to set
       xhasgalaxy.add(x);
+      // add galaxy coords
+      galaxies.push([x, y]);
     }
   }
 });
-// create expanded galaxy
-const expanded = [];
-const newxlen = lines[0].length + (lines[0].length - xhasgalaxy.size);
-lines.forEach((line, y) => {
-  let spaceline = "";
-  // add new lines
-  if (!yhasgalaxy.has(y)) {
-    expanded.push(".".repeat(newxlen));
-  }
-  // add columns
-  for (let x = 0; x < line.length; x++) {
-    if (!xhasgalaxy.has(x)) spaceline += ".";
-    spaceline += line[x];
-  }
-  expanded.push(spaceline);
-});
+// populate blank x
+for (let i = 0; i < lines[0].length; i++) {
+  if (!xhasgalaxy.has(i)) blankX.push(i);
+}
 
-// find all galaxies
-const galaxies = [];
-expanded.forEach((line, y) => {
-  for (let x = 0; x < line.length; x++) {
-    if (line[x] === "#") galaxies.push(coordkey(x, y));
-  }
-});
+// part 1
+console.log(sumDistances(expand(galaxies)));
+// part 2
+console.log(sumDistances(expand(galaxies, 1000000)));
 
-// sum distances between all galaxies
-const pairsSummed = new Set();
-let distanceSum = 0;
-galaxies.forEach((galaxy, i) => {
-  const [gx, gy] = galaxy.split(",").map(g => parseInt(g));
-  galaxies.forEach((other, j) => {
-    if (j === i) return;
-    const keyargs = j >= i ? [galaxy, other] : [other, galaxy];
-    const pairkey = coordkey(...keyargs);
-    if (pairsSummed.has(pairkey)) return;
-    pairsSummed.add(pairkey);
-    const [ox, oy] = other.split(",").map(g => parseInt(g));
-    const distance = (Math.abs(gx - ox) + Math.abs(gy - oy));
-    distanceSum += distance;
+function sumDistances(galaxies) {
+  let distanceSum = 0;
+  galaxies.forEach(([x, y], i) => {
+    for (let j = i + 1; j < galaxies.length; j++) {
+      const [a, b] = galaxies[j];
+      const distance = (Math.abs(x - a) + Math.abs(y - b));
+      distanceSum += distance;
+    }
   });
-});
+  return distanceSum;
+}
 
-console.log(distanceSum);
+function expand(galaxies, expansion = 2) {
+  const expanded = [];
+  for (const [x, y] of galaxies) {
+    const expX = x + (getNumsSmaller(blankX, x) * (expansion - 1));
+    const expY = y + (getNumsSmaller(blankY, y) * (expansion - 1));
+    expanded.push([expX, expY]);
+  }
+  return expanded;
+}
 
-function coordkey(x, y) {
-  return `${x},${y}`;
+function getNumsSmaller(nums, n) {
+  let smaller = 0;
+  for (const num of nums) {
+    if (num < n) smaller++;
+    else return smaller;
+  }
+  return smaller;
 }
