@@ -19,7 +19,9 @@ const unfolded = records.map(({springs, groups}) => {
 // part 1
 const sum = records.reduce((sum, {springs, groups}) => {
   const init = getInitialPattern(springs, groups);
-  return sum + scootAndValidate(init, springs, groups.length);
+  const linesum = scootAndValidate(init, springs, groups.length);
+  console.log(linesum);
+  return sum + linesum;
 }, 0);
 console.log(sum);
 
@@ -27,7 +29,6 @@ console.log(sum);
 const sum2 = unfolded.reduce((sum, {springs, groups}, i) => {
   const init = getInitialPattern(springs, groups);
   console.log(`running group ${i+ 1} of ${unfolded.length}`);
-  console.log(sum);
   return sum + scootAndValidate(init, springs, groups.length);
 }, 0);
 console.log(sum2);
@@ -35,21 +36,13 @@ console.log(sum2);
 
 function scootAndValidate(permutation, springs, numGroups) {
   let sum = 0;
-
-  if (numGroups === 1) {
-    while (permutation.endsWith(".")) {
-      sum += isValid(permutation, springs);
-      permutation = shiftOp(permutation, numGroups);
-    }
-    sum += isValid(permutation, springs);
-    return sum;
-  }
+  const validateFunc = numGroups === 1 ? isValid : scootAndValidate;
 
   while (permutation.endsWith(".")) {
-    sum += scootAndValidate(permutation, springs, numGroups - 1);
+    sum += validateFunc(permutation, springs, numGroups - 1);
     permutation = shiftOp(permutation, numGroups);
   }
-  sum += scootAndValidate(permutation, springs, numGroups - 1);
+  sum += validateFunc(permutation, springs, numGroups - 1);
   return sum;
 }
 
@@ -64,7 +57,10 @@ function getInitialPattern(springs, groups) {
 }
 
 function isValid(permutation, springs) {
-  return springs.split("").every((s, i) => s === "?" || permutation[i] === s);
+  for (let i = 0; i < springs.length; i++) {
+    if (springs[i] !== "?" && permutation[i] !== springs[i]) return false;
+  }
+  return true;
 }
 
 function shiftOp(permutation, groupnum) {
