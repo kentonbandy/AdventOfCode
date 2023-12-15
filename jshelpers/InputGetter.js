@@ -2,7 +2,7 @@ import fs from 'fs';
 import axios from 'axios';
 import { aocCookie } from './muhcookie.js'
 
-export async function getInput(filepath) {
+export async function getInput(filepath, filterEmptyLines = true) {
   const filepatharr = filepath.split('/');
   const len = filepatharr.length;
   const day = parseInt(filepatharr[len - 1].split('.')[0]);
@@ -14,7 +14,7 @@ export async function getInput(filepath) {
   try {
     const data = fs.readFileSync(relativePath, { encoding: 'utf8' });
     console.log("Input file found.");
-    return formatData(data);
+    return formatData(data, filterEmptyLines);
   } catch {
     console.log("Input file not found. Attempting to download...");
   }
@@ -23,7 +23,7 @@ export async function getInput(filepath) {
   const data = await downloadData(day, year);
   // create file and write data
   writeFile(relativePath, data);
-  return formatData(data);
+  return formatData(data, filterEmptyLines);
 }
 
 function writeFile(inputfilepath, data) {
@@ -45,6 +45,7 @@ async function downloadData(day, year) {
   return response.data;
 }
 
-function formatData(data) {
-  return data.split('\n').filter(x => x !== "");
+function formatData(data, filterEmptyLines = true) {
+  const lines = data.split("\n");
+  return filterEmptyLines ? lines.filter(x => x !== "") : lines;
 }
