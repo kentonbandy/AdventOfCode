@@ -17,32 +17,33 @@ const unfolded = records.map(({springs, groups}) => {
 });
 
 // part 1
-const sum = records.reduce((sum, {springs, groups}) => {
+const sum1 = records.reduce((sum, {springs, groups}) => {
   const init = getInitialPattern(springs, groups);
-  const linesum = scootAndValidate(init, springs, groups.length);
-  console.log(linesum);
+  const linesum = scootAndValidate(init, springs, groups, groups.length);
   return sum + linesum;
 }, 0);
-console.log(sum);
+console.log(sum1);
 
 // part 2
 const sum2 = unfolded.reduce((sum, {springs, groups}, i) => {
   const init = getInitialPattern(springs, groups);
   console.log(`running group ${i+ 1} of ${unfolded.length}`);
-  return sum + scootAndValidate(init, springs, groups.length);
+  return sum + scootAndValidate(init, springs, groups, groups.length);
 }, 0);
 console.log(sum2);
 
 
-function scootAndValidate(permutation, springs, numGroups) {
+function scootAndValidate(permutation, springs, groups, numGroups) {
   let sum = 0;
   const validateFunc = numGroups === 1 ? isValid : scootAndValidate;
 
   while (permutation.endsWith(".")) {
-    sum += validateFunc(permutation, springs, numGroups - 1);
+    if (thisGroupCorrect(permutation, springs, groups, numGroups)) {
+      sum += validateFunc(permutation, springs, groups, numGroups - 1);
+    }
     permutation = shiftOp(permutation, numGroups);
   }
-  sum += validateFunc(permutation, springs, numGroups - 1);
+  sum += validateFunc(permutation, springs, groups, numGroups - 1);
   return sum;
 }
 
@@ -54,6 +55,19 @@ function getInitialPattern(springs, groups) {
   }, "");
   damaged += ".".repeat(springs.length - damaged.length);
   return damaged;
+}
+
+function thisGroupCorrect(permutation, springs, groups, numGroups) {
+  const opInds = getOpInds(permutation);
+  const groupInd = groups.length - numGroups;
+  let i = opInds[groupInd];
+  const len = groups[groupInd];
+  const end = i + len;
+  
+  for (; i <= end; i++) {
+    if (springs[i] !== "?" && springs[i] !== permutation[i]) return false;
+  }
+  return true;
 }
 
 function isValid(permutation, springs) {
@@ -75,8 +89,9 @@ function getOpInds(permutation) {
 
   permutation.split("").forEach((c, i) => {
     if (i === permutation.length - 1) return;
-    if (i === 0 && permutation[0] === "#") indices.push(i);
-    if (c === "." && permutation[i + 1] === "#") indices.push(i);
+    if ((i === 0 && permutation[0] === "#") || (c === "." && permutation[i + 1] === "#")) {
+      indices.push(i);
+    }
   });
 
   return indices;
