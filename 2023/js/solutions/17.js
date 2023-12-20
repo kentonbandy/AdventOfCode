@@ -32,24 +32,36 @@ class Block {
 }
 
 const lines = await getInput(import.meta.url);
-// create block objects
-const grid = lines.map((line, y) => line.split("").map((block, x) => new Block(block, x, y)));
-// unvisited set
-const unvisited = new Set();
-// set neighbors
-grid.forEach(line => line.forEach(block => {
-  block.setNeighbors(getNeighbors(grid, block.x, block.y, true));
-  unvisited.add(block);
-}));
-// set current, end
-grid[grid.length - 1][grid[0].length -1].end = true;
-let current = grid[0][0];
-current.history = [];
-current.wholehistory = [];
-current.sum = current.heat;
 
-console.log(traverse(current));
+let unvisited;
+let grid;
+let heatLoss = 0;
+let valid = false;
+let path;
 
+while (!valid) {
+  unvisited = new Set();
+  grid = createGrid();
+  // set neighbors
+  grid.forEach(line => line.forEach(block => {
+    block.setNeighbors(getNeighbors(grid, block.x, block.y, true));
+    unvisited.add(block);
+  }));
+  // set current, end
+  grid[grid.length - 1][grid[0].length -1].end = true;
+  let current = grid[0][0];
+  current.history = [];
+  current.wholehistory = [];
+  current.sum = current.heat;
+  [heatLoss, valid] = traverse(current);
+}
+
+console.log(heatLoss);
+
+
+function createGrid() {
+  return lines.map((line, y) => line.split("").map((block, x) => new Block(block, x, y)));
+}
 
 function traverse(current) {
   while (!current.end) {
@@ -58,7 +70,7 @@ function traverse(current) {
       // calculate heat sum to them. if smaller, set that as their new sum AND set their history with directions
       const n = current[dir];
       const newSum = current.sum + n.heat;
-      if (newSum < n.sum) {
+      if (newSum > heatLoss && newSum < n.sum) {
         n.sum = newSum;
         n.history = [...current.history];
         n.wholehistory = [...current.wholehistory];
@@ -72,15 +84,24 @@ function traverse(current) {
     current = Array.from(unvisited).toSorted((a, b) => a.sum - b.sum)[0];
   }
   console.log(current.wholehistory);
-  return current.sum;
+  return [current.sum, !hasConsecutive(current.wholehistory)];
 }
 
 function getCheckableDirections(block) {
   const exclude = new Set();
-  if (block.history.length > 2 && block.history.every(d => d === block.history[0])) exclude.add(block.history[0]);
+
+  //if (block.history.length > 2 && block.history.every(d => d === block.history[0])) exclude.add(block.history[0]);
   if (!block.u || block.u.visited) exclude.add("u");
   if (!block.r || block.r.visited) exclude.add("r");
   if (!block.d || block.d.visited) exclude.add("d");
   if (!block.l || block.l.visited) exclude.add("l");
   return ["u", "r", "d", "l"].filter(d => !exclude.has(d));
+}
+
+function hasConsecutive(arr, threshold = 3) {
+  console.log(arr);
+  for (let i = 0; i < arr.length - threshold; i++) {
+    if (arr.slice(i, i + threshold).every(d => d === arr[i])) return true;
+  }
+  return false
 }
