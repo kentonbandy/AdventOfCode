@@ -33,9 +33,11 @@ Array.prototype.product = function() {
 
 // compares this with another array and returns true if they contain the same values
 // regardless of order
-Array.prototype.hasSameValues = function(arr) {
+Array.prototype.hasSameValues = function(arr, strictOrder = false) {
   if (this.length !== arr.length) return false;
-  return this.every(x => arr.includes(x));
+  return strictOrder
+    ? this.every((x, i) => x === arr[i])
+    : this.every(x => arr.includes(x));
 }
 
 // returns an array with the item moved, doesn't mutate this

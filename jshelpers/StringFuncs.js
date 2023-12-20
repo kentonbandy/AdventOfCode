@@ -21,3 +21,11 @@ String.prototype.rstrip = function (char = " ") {
   }
   return str;
 }
+
+String.prototype.lstrip = function(char = " ") {
+  let str = this;
+  while (str.startsWith(char)) {
+    str = str.slice(1);
+  }
+  return str;
+}
