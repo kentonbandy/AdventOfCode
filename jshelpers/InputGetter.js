@@ -21,6 +21,13 @@ export async function getInput(filepath, filterEmptyLines = true) {
 
   // if no file, get data from aoc
   const data = await downloadData(day, year);
+  if (!data) throw new Error("Could not fetch data.");
+
+  // if folder doesn't exist, create it
+  if (!fs.existsSync(`./${year}/js/inputs`)) {
+    fs.mkdirSync(`./${year}/js/inputs`, { recursive: true });
+  }
+
   // create file and write data
   writeFile(relativePath, data);
   return formatData(data, filterEmptyLines);
