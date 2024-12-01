@@ -26,4 +26,4 @@ def get_input_filepath(solutionpath):
     delimiter = "\\" if "\\" in solutionpath else "/"
     parent_path = delimiter.join(__file__.split(delimiter)[:-2])
     file_num = solutionpath.split(delimiter)[-1].split('.')[0]
-    return f"{parent_path}{delimiter}input{delimiter}{file_num}.txt"
+    return f"{parent_path}{delimiter}inputs{delimiter}{file_num}.txt"
