@@ -7,7 +7,8 @@ export async function getInput(filepath, filterEmptyLines = true) {
   const len = filepatharr.length;
   const day = parseInt(filepatharr[len - 1].split('.')[0]);
   const year = filepatharr[len -4];
-  const relativePath = `./${year}/js/inputs/${day}.txt`;
+  const pathday = day > 9 ? `${day}` : `0${day}`;
+  const relativePath = `./${year}/js/inputs/${pathday}.txt`;
 
   // try to read file
   console.log(`Attempting to read input file for ${year} day ${day}...`);

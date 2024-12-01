@@ -10,7 +10,10 @@ namespace AOC
     {
         public static List<string> ReadFile(int day)
         {
-            string file = @$"C:\Users\Kenny\coding\AOC\2021\CSharp\Input\{(day > 9 ? day : $"0{day}")}_input.txt";
+            var isMac = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX);
+            string file = isMac
+                ? @$"/Users/kentonbandy/repos/AdventOfCode/2021/CSharp/Input/{(day > 9 ? day : $"0{day}")}_input.txt"
+                : @$"C:\Users\Kenny\coding\AOC\2021\CSharp\Input\{(day > 9 ? day : $"0{day}")}_input.txt";
             if (file == null) return null;
             List<string> strings = new();
             if (File.Exists(file))
