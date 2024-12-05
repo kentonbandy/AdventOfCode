@@ -31,6 +31,7 @@ export async function getInput(filepath, filterEmptyLines = true) {
 
   // create file and write data
   writeFile(relativePath, data);
+  console.log("Input file downloaded and saved.");
   return formatData(data, filterEmptyLines);
 }
 
