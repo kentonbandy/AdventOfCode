@@ -47,8 +47,8 @@ function reportIsSafe(report) {
 }
 
 function levelIsSafe(isDesc, cur, nex, dif) {
-  if (dif > 3) return false;
-  if (isDesc && cur <= nex) return false;
-  if (!isDesc && cur >= nex) return false;
-  return true;
+  const diffOutOfBounds = dif > 3;
+  const notDescending = isDesc && cur <= nex;
+  const notAscending = !isDesc && cur >= nex;
+  return !diffOutOfBounds && !notDescending && !notAscending;
 }
