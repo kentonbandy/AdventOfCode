@@ -9,7 +9,7 @@ const linepairs = lines.map((line) => line.split('   '));
 const lst1 = linepairs.map(([id1, _]) => id1).toSorted((a, b) => a - b);
 const lst2 = linepairs.map(([_, id2]) => id2).toSorted((a, b) => a - b);
 // distance is the sum of differences at each index
-const distance = lst1.reduce((sum, id, i) => sum += Math.abs(id - lst2[i]), 0);
+const distance = lst1.reduce((sum, id, i) => sum + Math.abs(id - lst2[i]), 0);
 l(distance);
 
 // part 2 - create map of list 2 for fast lookup
