@@ -58,12 +58,20 @@ export function getNeighbor(grid, x, y, direction) {
   return newx !== null && newy !== null ? { val: grid[newy][newx], x: newx, y: newy } : null;
 }
 
-export function findChar(grid, char) {
+export function getValue(grid, value) {
   let x;
   for (let y = 0; y < grid.length; y++) {
-    x = grid[y].indexOf(char);
+    x = grid[y].indexOf(value);
     if (x > -1) return { x, y };
   }
+}
+
+export function setValue(grid, x, y, value) {
+  const newGrid = [];
+  for (const row of grid) newGrid.push([...row]);
+  newGrid[y][x] = value;
+
+  return newGrid;
 }
 
 function getBounds(grid, x, y) {

@@ -1,5 +1,5 @@
 import { getInput } from '../../../jshelpers/InputGetter.js';
-import { getNeighbors, findChar } from '../../../jshelpers/GridFuncs.js';
+import { getNeighbors, getValue } from '../../../jshelpers/GridFuncs.js';
 import '../../../jshelpers/ArrayFuncs.js';
 
 // #region setup
@@ -10,7 +10,7 @@ const dirs = {
 const opp = { u: "d", d: "u", l: "r", r: "l" };
 
 const lines = await getInput(import.meta.url);
-const startcoords = findChar(lines, "S");
+const startcoords = getValue(lines, "S");
 const S = getSShape(startcoords.x, startcoords.y);
 
 // set current to S location
@@ -58,7 +58,7 @@ function move(node) {
 }
 
 function getDirection(node) {
-  // the direction we want to go will be the exit that 
+  // the direction we want to go will be the exit that
   // is not the opposite of our last direction
   return dirs[node.pipe].find(e => e !== opp[node.last]);
 }
