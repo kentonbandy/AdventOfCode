@@ -14,8 +14,8 @@ const antennae = grid.reduce((map, row, y) => {
   return map;
 }, {});
 
-const [a, b] = scanCityForAntinodes(grid, antennae);
-l(a.size, b.size);
+const [p1, p2] = scanCityForAntinodes(grid, antennae);
+l(p1.size, p2.size);
 
 function scanCityForAntinodes(city, antennae) {
   const bounds = getGridBounds(city);
@@ -46,9 +46,10 @@ function calculateAntinode(a, b) {
 }
 
 function findAllAntinodes(firsta, firstb, antinodes, bounds) {
-  let a = firsta;
-  let b = firstb;
+  let a = { ...firsta };
+  let b = { ...firstb };
 
+  // while in bounds, add the current coord and dynamically find the next antinode
   while (isInBounds(a, bounds)) {
     antinodes.add(getKey(a));
     const antinode = calculateAntinode(a, b);
