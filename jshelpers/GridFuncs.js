@@ -12,7 +12,7 @@
 export function getNeighbors(grid, x, y, cardinal = false, callback = null) {
   let u, ur, r, dr, d, dl, l, ul;
 
-  const { lookup, lookright, lookdown, lookleft } = getBounds(grid, x, y);
+  const { lookup, lookright, lookdown, lookleft } = getNeighborBounds(grid, x, y);
 
   if (lookup) u = { val: grid[y-1][x], x, y: y-1 };
   if (lookright) r = { val: grid[y][x+1], x: x+1, y };
@@ -40,7 +40,7 @@ export function getNeighbors(grid, x, y, cardinal = false, callback = null) {
 }
 
 export function getNeighbor(grid, x, y, direction) {
-  const { lookup, lookright, lookdown, lookleft } = getBounds(grid, x, y);
+  const { lookup, lookright, lookdown, lookleft } = getNeighborBounds(grid, x, y);
 
   const funchash = {
     'u': () => lookup ? [x, y-1] : null,
@@ -74,7 +74,15 @@ export function setValue(grid, x, y, value) {
   return newGrid;
 }
 
-function getBounds(grid, x, y) {
+export function getGridBounds(grid) {
+  const xmin = 0;
+  const ymin = 0;
+  const xmax = grid[0].length - 1;
+  const ymax = grid.length - 1;
+  return { xmin, xmax, ymin, ymax };
+}
+
+function getNeighborBounds(grid, x, y) {
   const lookup = y > 0;
   const lookright = x < grid[y].length - 1;
   const lookdown = y < grid.length - 1;
