@@ -1,6 +1,6 @@
 import { getInput } from '../../../jshelpers/InputGetter.js';
 import { l } from '../../../jshelpers/functions.js'
-import { getGridBounds } from '../../../jshelpers/GridFuncs.js';
+import { getGridBounds, getCoordString } from '../../../jshelpers/GridFuncs.js';
 
 const grid = (await getInput(import.meta.url)).map((l) => l.split(""));
 // map antenna frequency (character) to array of coordinates for those anntennae
@@ -51,7 +51,7 @@ function findAllAntinodes(firsta, firstb, antinodes, bounds) {
 
   // while in bounds, add the current coord and dynamically find the next antinode
   while (isInBounds(a, bounds)) {
-    antinodes.add(getKey(a));
+    antinodes.add(getCoordString(a));
     const antinode = calculateAntinode(a, b);
     b = a;
     a = antinode;
@@ -66,9 +66,5 @@ function isInBounds(coord, bounds) {
 
 function addAntinode(antinode, antinodes, bounds) {
   if (!isInBounds(antinode, bounds)) return;
-  antinodes.add(getKey(antinode));
-}
-
-function getKey(coord) {
-  return `${coord.x}|${coord.y}`;
+  antinodes.add(getCoordString(antinode));
 }

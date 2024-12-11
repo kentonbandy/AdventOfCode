@@ -82,6 +82,10 @@ export function getGridBounds(grid) {
   return { xmin, xmax, ymin, ymax };
 }
 
+export function getCoordString(obj) {
+  return `${obj.x}|${obj.y}`;
+}
+
 function getNeighborBounds(grid, x, y) {
   const lookup = y > 0;
   const lookright = x < grid[y].length - 1;
