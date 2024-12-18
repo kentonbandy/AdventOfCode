@@ -1,18 +1,27 @@
 import { getInput } from "../../../jshelpers/InputGetter.js";
 import { l } from "../../../jshelpers/functions.js";
 
-const data = (await getInput(import.meta.url))[0]
+class Stone {
+  constructor(value, depth) {
+    this.value = value;
+    this.depth = depth;
+  }
+}
+
+const startingStones = (await getInput(import.meta.url))[0]
   .split(" ")
-  .map((s) => parseInt(s));
+  .map((s) => new Stone(parseInt(s), 1));
 
-l(countStones(stones));
+const values = startingStones.map(s => s.value);
 
-function countStones(stones) {
+l(countStones(values, 75));
+
+function countStones(stones, blinks) {
   let stoneCount = stones.length;
   let stoneNum = 1;
   for (const stone of stones) {
-    l("starting stone", stoneNum++)
-    stoneCount += stoneStep(stone, 1, 75);
+    l("starting stone", stoneNum++);
+    stoneCount += stoneStep(stone, 1, blinks);
   }
 
   return stoneCount;
@@ -22,7 +31,6 @@ function stoneStep(stone, step, max) {
   if (step > max) return 0;
 
   const newStones = evaluateStone(stone);
-
   let newStoneCount = newStones.length - 1;
 
   for (const stone of newStones) {
@@ -48,4 +56,25 @@ function splitInHalf(str) {
   const left = parseInt(str.slice(0, half));
   const right = parseInt(str.slice(half));
   return [left, right];
+}
+
+// too memory inefficient
+function blinkpocalypse(stones, blinks) {
+  const unprocessed = [...stones];
+  let count = unprocessed.length;
+
+  while (unprocessed.length) {
+    l(unprocessed.length);
+    const current = unprocessed.shift();
+    // clamp depth
+    if (current.depth > blinks) continue;
+    const newStoneValues = evaluateStone(current.value);
+    // if the stone has divided, add one to count
+    count += newStoneValues.length - 1;
+    newStoneValues.forEach((v) => {
+      unprocessed.push(new Stone(v, current.depth + 1));
+    });
+  }
+
+  return count;
 }
