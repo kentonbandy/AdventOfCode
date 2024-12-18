@@ -30,6 +30,7 @@ function parseMap(topomap) {
   return [validDestinations, allValidTrails];
 }
 
+// returning the peak coord object for each path so we can get unique for part 1
 function getPaths(topomap, coordObj, nextNum, peak) {
   if (nextNum === peak && coordObj.val === peak) return coordObj;
   if (coordObj.val !== nextNum) return null;

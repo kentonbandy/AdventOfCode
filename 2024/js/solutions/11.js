@@ -1,34 +1,35 @@
 import { getInput } from "../../../jshelpers/InputGetter.js";
 import { l } from "../../../jshelpers/functions.js";
 
-const stones = (await getInput(import.meta.url))[0]
+const data = (await getInput(import.meta.url))[0]
   .split(" ")
   .map((s) => parseInt(s));
 
-l(observeStones(stones, 25).length);
+l(countStones(stones));
 
-function observeStones(stones, blinks) {
-  let newStones = [...stones];
-  let count = 1;
-
-  while (blinks > 0) {
-    l(count++);
-    newStones = blink(newStones);
-    blinks--;
+function countStones(stones) {
+  let stoneCount = stones.length;
+  let stoneNum = 1;
+  for (const stone of stones) {
+    l("starting stone", stoneNum++)
+    stoneCount += stoneStep(stone, 1, 75);
   }
 
-  return newStones;
+  return stoneCount;
 }
 
-function blink(stones) {
-  let newStones = [];
+function stoneStep(stone, step, max) {
+  if (step > max) return 0;
 
-  for (const stone of stones) {
-    newStones = newStones.concat(evaluateStone(stone));
+  const newStones = evaluateStone(stone);
+
+  let newStoneCount = newStones.length - 1;
+
+  for (const stone of newStones) {
+    newStoneCount += stoneStep(stone, step + 1, max);
   }
 
-  l(newStones);
-  return newStones
+  return newStoneCount;
 }
 
 function evaluateStone(stone) {
