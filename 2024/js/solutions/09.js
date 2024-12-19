@@ -1,5 +1,5 @@
 import { getInput } from '../../../jshelpers/InputGetter.js';
-import { l } from '../../../jshelpers/functions.js'
+import { l } from '../../../jshelpers/functions.js';
 
 const diskMap = (await getInput(import.meta.url))[0];
 

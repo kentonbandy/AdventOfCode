@@ -1,5 +1,5 @@
 import { getInput } from '../../../jshelpers/InputGetter.js';
-import { l } from '../../../jshelpers/functions.js'
+import { l } from '../../../jshelpers/functions.js';
 import { getGridBounds, getCoordString } from '../../../jshelpers/GridFuncs.js';
 
 const grid = (await getInput(import.meta.url)).map((l) => l.split(""));
