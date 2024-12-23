@@ -66,6 +66,14 @@ export function getValue(grid, value) {
   }
 }
 
+export function getNodeWithValue(grid, property, value) {
+  for (const row of grid) {
+    for (const node of row) {
+      if (node[property] === value) return node;
+    }
+  }
+}
+
 export function setValue(grid, x, y, value) {
   const newGrid = [];
   for (const row of grid) newGrid.push([...row]);
