@@ -1,43 +1,31 @@
 import { getInput } from "../../../jshelpers/InputGetter.js";
 import { l } from "../../../jshelpers/functions.js";
 
-class Stone {
-  constructor(value, depth) {
-    this.value = value;
-    this.depth = depth;
-  }
-}
-
 const startingStones = (await getInput(import.meta.url))[0]
   .split(" ")
-  .map((s) => new Stone(parseInt(s), 1));
+  .map((s) => parseInt(s));
 
-const values = startingStones.map(s => s.value);
+let total = 0;
 
-l(countStones(values, 75));
+countStones(startingStones, 25);
+l(total);
 
 function countStones(stones, blinks) {
-  let stoneCount = stones.length;
   let stoneNum = 1;
   for (const stone of stones) {
     l("starting stone", stoneNum++);
-    stoneCount += stoneStep(stone, 1, blinks);
+    stoneStep(stone, 0, blinks);
   }
-
-  return stoneCount;
 }
 
 function stoneStep(stone, step, max) {
-  if (step > max) return 0;
-
-  const newStones = evaluateStone(stone);
-  let newStoneCount = newStones.length - 1;
-
-  for (const stone of newStones) {
-    newStoneCount += stoneStep(stone, step + 1, max);
+  if (step === max) {
+    total += 1;
+    return;
   }
 
-  return newStoneCount;
+  const newStones = evaluateStone(stone);
+  for (const stone of newStones) stoneStep(stone, step + 1, max);
 }
 
 function evaluateStone(stone) {
@@ -56,25 +44,4 @@ function splitInHalf(str) {
   const left = parseInt(str.slice(0, half));
   const right = parseInt(str.slice(half));
   return [left, right];
-}
-
-// too memory inefficient
-function blinkpocalypse(stones, blinks) {
-  const unprocessed = [...stones];
-  let count = unprocessed.length;
-
-  while (unprocessed.length) {
-    l(unprocessed.length);
-    const current = unprocessed.shift();
-    // clamp depth
-    if (current.depth > blinks) continue;
-    const newStoneValues = evaluateStone(current.value);
-    // if the stone has divided, add one to count
-    count += newStoneValues.length - 1;
-    newStoneValues.forEach((v) => {
-      unprocessed.push(new Stone(v, current.depth + 1));
-    });
-  }
-
-  return count;
 }
