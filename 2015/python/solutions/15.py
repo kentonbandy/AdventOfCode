@@ -1,16 +1,8 @@
 import file_reader
-import helpers
-import numpy
+import math
 
 lines = file_reader.get_lines(__file__)
-linelists = [line.replace(',', '').replace(
-    ':', '').split(' ') for line in lines]
-combinations = helpers.stars_bars(100, 3, 0)
-combinations = [group + ((100 - (group[0] + group[1] + group[2])),)
-                for group in combinations]
-
-print(len(combinations))
-
+linelists = [line.replace(',', '').replace(':', '').split(' ') for line in lines]
 
 class Ingredient:
     def __init__(self, line):
@@ -19,9 +11,6 @@ class Ingredient:
         self.flv = int(line[6])
         self.tex = int(line[8])
         self.cal = int(line[10])
-
-    def score(self):
-        return self.cap * self.dur * self.flv * self.tex
 
     def multiply(self, num):
         return Ingredient([
@@ -35,43 +24,35 @@ class Ingredient:
     def print(self):
         print(self.cap, self.dur, self.flv, self.tex, self.cal)
 
+def get_score(ingredients, amounts):
+    sums = [0, 0, 0, 0]
+    calories = 0
 
-istats = [
-    Ingredient(linelists[0]),
-    Ingredient(linelists[1]),
-    Ingredient(linelists[2]),
-    Ingredient(linelists[3])
-]
+    for index, ingredient in enumerate(ingredients):
+        result: Ingredient = ingredient.multiply(amounts[index])
+        sums[0] += result.cap
+        sums[1] += result.dur
+        sums[2] += result.flv
+        sums[3] += result.tex
+        calories += result.cal
+    
+    pos_sums = [num if num > 0 else 0 for num in sums]
 
-biggest = 0
+    return [math.prod(pos_sums), calories]
 
+_ingredients = [Ingredient(line) for line in linelists]
+_best_score = 0
+_best_score_500_cal = 0
 
-def addstat(lst, stat):
-    tot = 0
-    for ing in lst:
-        tot += getattr(ing, stat)
-    return max(tot, 0)
+for a in range(101):
+    for b in range(101 - a):
+        for c in range(101 - a - b):
+            d = 100 - a - b - c
 
+            [score, calories] = get_score(_ingredients, [a, b, c, d])
+            if score > _best_score:
+                _best_score = score
+            if calories == 500:
+                _best_score_500_cal = max(score, _best_score_500_cal)
 
-for combination in combinations:
-    inglist = [
-        istats[0].multiply(combination[0]),
-        istats[1].multiply(combination[1]),
-        istats[2].multiply(combination[2]),
-        istats[3].multiply(combination[3]),
-    ]
-
-    stats = [
-        addstat(inglist, 'cap'),
-        addstat(inglist, 'dur'),
-        addstat(inglist, 'flv'),
-        addstat(inglist, 'tex'),
-    ]
-
-    if 0 in stats:
-        continue
-
-    prod = numpy.prod(numpy.array(stats))
-    biggest = max(biggest, prod)
-
-print(biggest)
+print(_best_score, _best_score_500_cal)
