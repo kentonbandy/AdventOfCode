@@ -22,8 +22,6 @@ class Ingredient:
             0, self.cal * num,
         ])
 
-    def print(self):
-        print(self.cap, self.dur, self.flv, self.tex, self.cal)
 
 def get_score(ingredients: List[Ingredient], amounts: List[int]):
     sums = [0, 0, 0, 0]
@@ -37,9 +35,10 @@ def get_score(ingredients: List[Ingredient], amounts: List[int]):
         sums[3] += result.tex
         calories += result.cal
     
-    pos_sums = [num if num > 0 else 0 for num in sums]
+    pos_sums = [max(0, num) for num in sums]
 
     return [math.prod(pos_sums), calories]
+
 
 _ingredients = [Ingredient(line) for line in linelists]
 _best_score = 0
