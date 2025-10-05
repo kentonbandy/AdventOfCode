@@ -4,15 +4,15 @@ import { l } from '../../../jshelpers/functions.js';
 const line = (await getInput(import.meta.url))[0];
 const instructions = line.split(", ");
 
-// the distance in blocks
-let nsDistance = 0;
-let ewDistance = 0;
+let x = 0;
+let y = 0;
+let coords = new Set(["0,0"]);
 // number used to derive direction
 let turn = 0;
-const visited = { '00': true };
+let firstFound = false;
 
 solve();
-l("part 2: ", Math.abs(nsDistance) + Math.abs(ewDistance));
+l("part 1: ", getDistance(x, y));
 
 function solve() {
   for (const instruction of instructions) {
@@ -31,11 +31,23 @@ function processInstruction(string) {
 
   // maths
   const isNs = turn % 2 === 0;
-  const toAdd = turn % 4 < 2 ? num : num * -1;
-  if (isNs) nsDistance += toAdd;
-  else ewDistance += toAdd;
+  let toAdd = turn % 4 < 2 ? num : num * -1;
 
-  const key = `${nsDistance}${ewDistance}`;
-  if (visited[key]) l("part 1: ", Math.abs(nsDistance) + Math.abs(ewDistance));
-  visited[`${nsDistance}${ewDistance}`] = true;
+  // move one block at a time, logging visited coords
+  while (toAdd !== 0) {
+    const step = toAdd > 0 ? 1 : -1
+    if (isNs) y += step;
+    else x += step;
+    const coordKey = `${x},${y}`;
+    if (!firstFound && coords.has(coordKey)) {
+      l(`part 2: `, getDistance(x, y));
+      firstFound = true;
+    }
+    coords.add(coordKey);
+    toAdd -= step;
+  }
+}
+
+function getDistance(_x, _y) {
+  return Math.abs(_x) + Math.abs(_y);
 }
