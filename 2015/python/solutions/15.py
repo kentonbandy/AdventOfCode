@@ -1,18 +1,19 @@
 import file_reader
 import math
+from typing import List
 
 lines = file_reader.get_lines(__file__)
 linelists = [line.replace(',', '').replace(':', '').split(' ') for line in lines]
 
 class Ingredient:
-    def __init__(self, line):
+    def __init__(self, line: List[str]):
         self.cap = int(line[2])
         self.dur = int(line[4])
         self.flv = int(line[6])
         self.tex = int(line[8])
         self.cal = int(line[10])
 
-    def multiply(self, num):
+    def multiply(self, num: int):
         return Ingredient([
             0, 0, self.cap * num,
             0, self.dur * num,
@@ -24,12 +25,12 @@ class Ingredient:
     def print(self):
         print(self.cap, self.dur, self.flv, self.tex, self.cal)
 
-def get_score(ingredients, amounts):
+def get_score(ingredients: List[Ingredient], amounts: List[int]):
     sums = [0, 0, 0, 0]
     calories = 0
 
     for index, ingredient in enumerate(ingredients):
-        result: Ingredient = ingredient.multiply(amounts[index])
+        result = ingredient.multiply(amounts[index])
         sums[0] += result.cap
         sums[1] += result.dur
         sums[2] += result.flv
