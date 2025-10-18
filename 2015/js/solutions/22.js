@@ -16,24 +16,26 @@ l(minMana);
 function recursiveBattle(state, isHardMode) {
   if (state.manaSpent > minMana) return;
 
-  const availableSpells = getAvailableSpells(state);
+  let newState = isHardMode ? hardMode(state) : state;
+  if (newState.playerHp === 0) return;
+  newState = applySpellEffects(newState);
+
+  const availableSpells = getAvailableSpells(newState);
 
   if (availableSpells.length === 0) {
-    if (didPlayerWin(state)) {
-      minMana = state.manaSpent;
+    if (didPlayerWin(newState)) {
+      minMana = newState.manaSpent;
     }
     return;
   }
 
   for (const spell of availableSpells) {
-    recursiveBattle(battleRound(state, spell, isHardMode), isHardMode);
+    recursiveBattle(battleRound(newState, spell), isHardMode);
   }
 }
 
-function battleRound(state, spell, isHardMode) {
-  const beginState = isHardMode ? hardMode(state) : state;
-  if (beginState.playerHp === 0) return beginState;
-  return bossTurn(applySpellEffects(playerTurn(spell, applySpellEffects(beginState))));
+function battleRound(state, spell) {
+  return bossTurn(applySpellEffects(playerTurn(spell, state)));
 }
 
 function hardMode(state) {
