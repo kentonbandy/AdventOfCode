@@ -1,5 +1,11 @@
 import { l } from '../../../jshelpers/functions.js';
 
+/**
+ * I was stuck on this and researched a solution. Thanks to Edd Mann
+ * https://eddmann.com/posts/advent-of-code-2015-day-22-wizard-simulator-20xx/
+ * My solution is similar in approach but with some differences due to my preferences and environment.
+ */
+
 const spells = [//           cost  d  a  h    m  t
   buildSpell("magic missile",  53, 4, 0, 0,   0, 1),
   buildSpell("drain",          73, 2, 0, 2,   0, 1),
@@ -8,34 +14,32 @@ const spells = [//           cost  d  a  h    m  t
   buildSpell("recharge",      229, 0, 0, 0, 101, 5),
 ];
 const initialState = buildState(50, 500, 0, 51, 9, 0);
-let minMana = Infinity;
 
-recursiveBattle(initialState, true);
-l(minMana);
+l(recursiveBattle(initialState));
+l(recursiveBattle(initialState, true));
 
-function recursiveBattle(state, isHardMode) {
-  if (state.manaSpent > minMana) return;
+function recursiveBattle(state, isHardMode = false, minMana = Infinity) {
+  if (state.manaSpent > minMana) return minMana;
 
-  let newState = isHardMode ? hardMode(state) : state;
-  if (newState.playerHp === 0) return;
-  newState = applySpellEffects(newState);
-
-  const availableSpells = getAvailableSpells(newState);
+  const availableSpells = getAvailableSpells(state);
 
   if (availableSpells.length === 0) {
-    if (didPlayerWin(newState)) {
-      minMana = newState.manaSpent;
-    }
-    return;
+    return didPlayerWin(state) ? state.manaSpent : minMana;
   }
 
   for (const spell of availableSpells) {
-    recursiveBattle(battleRound(newState, spell), isHardMode);
+    const postBattleState = battleRound(state, spell, isHardMode);
+    const result = recursiveBattle(postBattleState, isHardMode, minMana);
+    minMana = Math.min(minMana, result);
   }
+
+  return minMana;
 }
 
-function battleRound(state, spell) {
-  return bossTurn(applySpellEffects(playerTurn(spell, state)));
+function battleRound(state, spell, isHardMode) {
+  const beginState = isHardMode ? hardMode(state) : state;
+  if (beginState.playerHp === 0) return beginState;
+  return bossTurn(applySpellEffects(playerTurn(spell, applySpellEffects(beginState))));
 }
 
 function hardMode(state) {
@@ -61,7 +65,6 @@ function playerTurn(spell, state) {
     bossHp: state.bossHp - (isEffect ? 0 : spell.damage),
     manaSpent: state.manaSpent + spell.cost,
     activeSpells: isEffect ? [...state.activeSpells, spell] : state.activeSpells,
-    spellsCast: [...state.spellsCast, spell.name],
   };
 }
 
@@ -97,7 +100,8 @@ function getAvailableSpells(state) {
 
   return spells.filter((spell) => {
     if (spell.cost > state.playerMana) return false;
-    return !state.activeSpells.some((activeSpell) => activeSpell.name === spell.name);
+    // include spells with turns === 1 because those will expire by the player's turn
+    return !state.activeSpells.some((activeSpell) => activeSpell.name === spell.name && activeSpell.turns > 1);
   });
 }
 
@@ -105,8 +109,8 @@ function isBattleOver(state) {
   return state.playerHp <= 0 || state.bossHp <= 0;
 }
 
-function buildState(playerHp, playerMana, playerArmor, bossHp, bossDamage, manaSpent, activeSpells = [], spellsCast = []) {
-  return { playerHp, playerMana, playerArmor, bossHp, bossDamage, manaSpent, activeSpells, spellsCast };
+function buildState(playerHp, playerMana, playerArmor, bossHp, bossDamage, manaSpent, activeSpells = []) {
+  return { playerHp, playerMana, playerArmor, bossHp, bossDamage, manaSpent, activeSpells };
 }
 
 function buildSpell(name, cost, damage, armor, heal, mana, turns) {
