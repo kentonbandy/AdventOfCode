@@ -5,4 +5,5 @@
 node_modules/
 **/inputs
 **/input
+**/Input
 *.DS_Store
