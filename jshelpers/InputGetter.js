@@ -51,7 +51,7 @@ async function downloadData(day, year) {
     return;
   }
 
-  return response.data;
+  return response.data.toString();
 }
 
 function formatData(data, filterEmptyLines = true) {

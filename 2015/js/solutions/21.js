@@ -1,5 +1,7 @@
+import { getInput } from '../../../jshelpers/InputGetter.js';
 import { l } from '../../../jshelpers/functions.js';
 
+const _lines = await getInput(import.meta.url);
 const _player = {
   hp: 100,
   damage: 0,
@@ -7,10 +9,11 @@ const _player = {
   spent: 0,
   equipped: [],
 };
+const [_bossHp, _bossDamage, _bossArmor] = _lines.map((l) => Number.parseInt(l.split(": ")[1]));
 const _boss = {
-  hp: 103,
-  damage: 9,
-  armor: 2,
+  hp: _bossHp,
+  damage: _bossDamage,
+  armor: _bossArmor,
 };
 const weapons = [
   buildItem("dagger", 8, 4, 0),
@@ -33,7 +36,7 @@ const rings = [
   buildItem("defense +1", 20, 0, 1),
   buildItem("defense +2", 40, 0, 2),
   buildItem("defense +3", 80, 0, 3),
-]
+];
 
 l(getLowestCost(_player, _boss));
 

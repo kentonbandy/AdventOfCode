@@ -1,7 +1,13 @@
+import { getInput } from '../../../jshelpers/InputGetter.js';
 import { l } from '../../../jshelpers/functions.js';
 
-const _x = 3075;
-const _y = 2981;
+const _lines = await getInput(import.meta.url);
+const [_y, _x] = _lines[0]
+  .replace(".", "")
+  .replace(",", "")
+  .split(" ")
+  .map((string) => Number.parseInt(string))
+  .filter((number) => Number.isFinite(number));
 const _firstCode = 20151125;
 
 l(findCode(_x, _y, _firstCode));

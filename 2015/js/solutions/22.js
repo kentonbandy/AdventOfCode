@@ -1,3 +1,4 @@
+import { getInput } from '../../../jshelpers/InputGetter.js';
 import { l } from '../../../jshelpers/functions.js';
 
 /**
@@ -6,6 +7,7 @@ import { l } from '../../../jshelpers/functions.js';
  * My solution is similar in approach but with some differences due to my preferences and environment.
  */
 
+const _lines = await getInput(import.meta.url);
 const spells = [//           cost  d  a  h    m  t
   buildSpell("magic missile",  53, 4, 0, 0,   0, 1),
   buildSpell("drain",          73, 2, 0, 2,   0, 1),
@@ -13,7 +15,8 @@ const spells = [//           cost  d  a  h    m  t
   buildSpell("poison",        173, 3, 0, 0,   0, 6),
   buildSpell("recharge",      229, 0, 0, 0, 101, 5),
 ];
-const initialState = buildState(50, 500, 0, 51, 9, 0);
+const [bossHp, bossDamage] = _lines.map((l) => Number.parseInt(l.split(": ")[1]));
+const initialState = buildState(50, 500, 0, bossHp, bossDamage, 0);
 
 l(recursiveBattle(initialState));
 l(recursiveBattle(initialState, true));

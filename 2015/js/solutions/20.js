@@ -1,6 +1,8 @@
+import { getInput } from '../../../jshelpers/InputGetter.js';
 import { l } from '../../../jshelpers/functions.js';
 
-const _input = 36000000;
+const _lines = await getInput(import.meta.url);
+const _input = Number.parseInt(_lines[0])
 const _delivery = 11;
 
 // This was hacky; I'm sure a much better solution is possible using clever math
