@@ -94,6 +94,67 @@ export function getCoordString(obj) {
   return `${obj.x}|${obj.y}`;
 }
 
+export function buildGrid(width, height, character = ".") {
+  const grid = [];
+
+  for (let i = 0; i < height; i++) {
+    const row = [];
+    for (let j = 0; j < width; j++) {
+      row.push(character);
+    }
+    grid.push(row);
+  }
+
+  return grid;
+}
+
+export function rotateRowInline(grid, y, offset, isRight = true) {
+  const row = grid[y];
+  if (!isRight) offset *= -1;
+  const spliceIndex = (row.length - offset) % row.length;
+  const newRow = row.slice(spliceIndex).concat(row.slice(0, spliceIndex));
+  grid[y] = newRow;
+}
+
+export function rotateColumnInline(grid, x, offset, isDown = true) {
+  const column = [grid.map((row) => row[x])];
+  rotateRowInline(column, 0, offset, isDown);
+  for (const [y, row] of grid.entries()) {
+    row[x] = column[0][y];
+  }
+}
+
+export function printGridToConsole(grid, joinChar = " ") {
+  for (const row of grid) {
+    console.log(row.join(joinChar));
+  }
+}
+
+export function fillRectInline(grid, width, height, starty = 0, startx = 0, character = "#") {
+  const gridWidth = grid[0].length;
+  const gridHeight = grid.length;
+
+  for (let y = starty; y < height; y++) {
+    if (y >= gridHeight) break;
+    for (let x = startx; x < width; x++) {
+      if (x >= gridWidth) break;
+      grid[y][x] = character;
+    }
+  }
+}
+
+export function countValue(grid, value) {
+  let count = 0;
+
+  for (const row of grid) {
+    for (const item of row) {
+      if (item === value) count++;
+    }
+  }
+
+  return count;
+}
+
 function getNeighborBounds(grid, x, y) {
   const lookup = y > 0;
   const lookright = x < grid[y].length - 1;
