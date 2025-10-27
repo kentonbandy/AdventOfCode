@@ -2,6 +2,7 @@
 **/*.pyc
 **/*.vscode
 **/muhcookie.js
+**/muhcookie.ts
 node_modules/
 **/inputs
 **/input
