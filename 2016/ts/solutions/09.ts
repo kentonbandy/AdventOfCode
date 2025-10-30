@@ -10,7 +10,6 @@ l(decompress(_input).length);
 l(getDecompressLengthRecursive(_input));
 
 function getDecompressLengthRecursive(input: string): number {
-
   const regexResult = markerRegex.exec(input);
   if (!regexResult) return input.length;
   const prepend = regexResult.index;
