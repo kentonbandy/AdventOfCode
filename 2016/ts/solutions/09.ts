@@ -4,9 +4,22 @@ import { l } from '@/tsutilities/helpers/ShorthandFunctions.js';
 const _input = (await getInput(import.meta.url))[0];
 const markerRegex = /\(\d+x\d+\)/;
 
-type Marker = { count: number, repeat: number, targetIndex: number };
+type Marker = { count: number, repeat: number, targetIndex: number, targetString: string };
 
 l(decompress(_input).length);
+l(getDecompressLengthRecursive(_input));
+
+function getDecompressLengthRecursive(input: string): number {
+
+  const regexResult = markerRegex.exec(input);
+  if (!regexResult) return input.length;
+  const prepend = regexResult.index;
+  const marker = parseMarker(input, regexResult[0], regexResult.index);
+  const remainingInput = input.substring(regexResult[0].length + marker.targetString.length + regexResult.index);
+  
+  const targetLength = getDecompressLengthRecursive(marker.targetString);
+  return prepend + (targetLength * marker.repeat) + getDecompressLengthRecursive(remainingInput);
+}
 
 function decompress(input: string): string {
   let pointer = 0;
@@ -22,7 +35,7 @@ function decompress(input: string): string {
     pointer += regexResult.index;
 
     const markerString = regexResult[0];
-    const marker = parseMarker(markerString, pointer);
+    const marker = parseMarker(input, markerString, pointer);
     pointer += markerString.length + marker.count;
     output += executeMarker(input, output, marker);
   }
@@ -30,7 +43,7 @@ function decompress(input: string): string {
   return output;
 }
 
-function parseMarker(markerString: string, pointer: number): Marker {
+function parseMarker(input: string, markerString: string, pointer: number = 0): Marker {
   const marker = markerString
     .substring(1, markerString.length -1)
     .split("x")
@@ -42,6 +55,7 @@ function parseMarker(markerString: string, pointer: number): Marker {
     }, {} as Marker);
 
   marker.targetIndex = pointer + markerString.length;
+  marker.targetString = input.substring(marker.targetIndex, marker.targetIndex + marker.count);
 
   return marker;
 }
