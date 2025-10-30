@@ -37,7 +37,7 @@ function decompress(input: string): string {
     const markerString = regexResult[0];
     const marker = parseMarker(input, markerString, pointer);
     pointer += markerString.length + marker.count;
-    output += executeMarker(input, output, marker);
+    output += executeMarker(input, marker);
   }
 
   return output;
@@ -60,7 +60,7 @@ function parseMarker(input: string, markerString: string, pointer: number = 0): 
   return marker;
 }
 
-function executeMarker(input: string, output: string, marker: Marker): string {
+function executeMarker(input: string, marker: Marker): string {
   const repeatString = input.slice(marker.targetIndex, marker.targetIndex + marker.count);
   const decompressed = repeatString.repeat(marker.repeat);
   return decompressed;
