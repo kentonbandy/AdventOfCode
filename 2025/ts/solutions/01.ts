@@ -26,7 +26,9 @@ function turnDial(start: number): number {
   return zerocount;
 }
 
-function followInstruction(dial: number, amount: number, zerocount: number, direction: string): [dial: number, zerocount: number] {
+function followInstruction(dial: number, amount: number, zerocount: number, direction: string):
+  [dial: number, zerocount: number]
+{
   const toAdd = direction === "R" ? 1 : -1;
 
   for (let i = 0; i < amount; i++) {
