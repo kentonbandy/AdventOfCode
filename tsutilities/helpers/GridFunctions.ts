@@ -1,15 +1,15 @@
 import { l } from '@/tsutilities/helpers/ShorthandFunctions.js';
 
-type Grid<T> = T[][];
-type GridNeighbor<T> = { x: number, y: number, value: T | undefined } | undefined;
-type GridDirection = 'up' | 'ur' | 'rt' | 'dr' | 'dn' | 'dl' | 'lt' | 'ul';
-type GridNeighborBounds = {
+export type Grid<T> = T[][];
+export type GridNeighbor<T> = { x: number, y: number, value: T | undefined } | undefined;
+export type GridDirection = 'up' | 'ur' | 'rt' | 'dr' | 'dn' | 'dl' | 'lt' | 'ul';
+export type GridNeighborBounds = {
   lookup: boolean,
   lookright: boolean,
   lookdown: boolean,
   lookleft: boolean
 };
-interface GridCoordinate { x: number, y: number };
+export interface GridCoordinate { x: number, y: number };
 
 /**
  * Returns the values of the neighbors of a given grid cell as an object.
