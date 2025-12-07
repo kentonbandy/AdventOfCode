@@ -14,7 +14,7 @@ function traceTachyon(manifold: string[], startingTachyons: number[]): [number, 
   let splits = 0;
 
   for (const row of manifold) {
-    let newTachyons: QuantumTachyons = {};
+    const newTachyons: QuantumTachyons = {};
 
     for (const [key, amount] of Object.entries(tachyons)) {
       const index = Number.parseInt(key);
